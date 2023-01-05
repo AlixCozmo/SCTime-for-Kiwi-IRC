@@ -3,7 +3,7 @@ This extension injects sctime in messages, it is designed for Kiwi IRC.
 How to install:
 
 Chrome:
-To install, simply download the latest release, unzip the file and then in your web browser import it by selecting the unzipped folder.
+To install, simply download the latest release, unzip the file and then in chrome://extensions enable programmer mode, click import uncompressed extension and then select the unzipped folder.
 
 Firefox:
 To install, simply download the latest release, unzip the file. Go to about:debugging in the address bar, then click on "this firefox". After that click on "load temporary extension" then choose any file inside the unzipped folder.
