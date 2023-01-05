@@ -12,3 +12,6 @@ To install, simply download the latest release, unzip the file. Go to about:debu
 
 Example image:
 ![example3](https://user-images.githubusercontent.com/66059104/210634984-cfb3b8f5-482a-4119-8955-32c4fff5499b.PNG)
+
+
+All calculation stuff is ported to javascript from this: https://github.com/Delrynn/inline-sctime
