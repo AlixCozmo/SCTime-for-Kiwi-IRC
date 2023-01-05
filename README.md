@@ -1,5 +1,7 @@
 This extension injects sctime in messages, it is designed for Kiwi IRC.
 
+Please note that this extension currently uses ManifestV2 and not V3.
+
 How to install:
 
 Chrome:
