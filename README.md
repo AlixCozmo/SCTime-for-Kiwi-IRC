@@ -10,6 +10,10 @@ To install, simply download the latest release, unzip the file and then in chrom
 Firefox:
 To install, simply download the latest release, unzip the file. Go to about:debugging in the address bar, then click on "this firefox". After that click on "load temporary extension" then choose any file inside the unzipped folder.
 
+You can also install the extension with the .xpi file, though this may not work on regular firefox installations as it is not signed.
+
+If you want to try doing that, do this: go into about:addons in firefox, next click on the cogwheel and select install addon from file, then choose the .xpi file.
+
 NOTE: If using firefox, the extension will disappear after restarting the browser using this method.
 
 Example image:
