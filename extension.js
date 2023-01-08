@@ -20,13 +20,6 @@ function FindText() {
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
         messagetext = elems[elementnumber].innerHTML;
-        /*
-        if (finishedelements.includes(elementnumber)) {
-            console.log("finishedelements2:" + finishedelements);
-            console.log("Abort! Message already has sctime injected, elementnumber: " + elementnumber);
-            continue;
-        }
-        */
         if (messagetext.includes("((", "))")) { // If the message contains "((" and "))"
             //console.log("Abort! Message already has sctime injected, elementnumber: " + elementnumber);
             continue;
@@ -57,6 +50,7 @@ function FindText() {
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
             word=words[wordnumber];
             altword=word.toLowerCase();
+            altword = FixComma(word);
             if(IsValidWord(altword)) {
                 // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
                 words[wordnumber] = (word + " (" + TimeToTravel(altword) + ")");
@@ -105,6 +99,29 @@ function IsSupportedMessage() {
         destinationGravity = false;
         return true;
     }
+}
+
+function FixComma(word) {
+    let indexpos = 0;
+    let dotCount = 0;
+    let fixedWord = "";
+    for (let x = 0; x < 2; x++) {
+        indexpos = word.indexOf(".", indexpos+1);
+        console.log("indexpos: " + indexpos);
+        if (indexpos != "-1") {
+            //console.log("bef: " + dotCount);
+            dotCount += 1;
+            //console.log("aft:" + dotCount);
+            if (dotCount > 1) {
+                console.log("more than 1 comma has been detected, ignoring commas after the first one..");
+               fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
+               //console.log("word: " + word);
+               //console.log("fixedword: " + fixedWord); 
+               return fixedWord;
+            }
+        }
+    }
+    return word;
 }
 
 function IsValidWord(word) {
@@ -205,6 +222,9 @@ function CalculateSCTime(distance, distanceunit) {
     //console.log("tots" + totalseconds);
     SCTime = CrTimeString(totalseconds);
     //console.log(SCTime);
+    if (SCTime == "NaNs") {
+        return "(an error has occurred)";
+    }
     return SCTime;
  }
 
