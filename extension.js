@@ -51,6 +51,7 @@ function FindText() {
             word=words[wordnumber];
             altword=word.toLowerCase();
             altword = FixComma(word);
+            altword = RemoveChar(word);
             if(IsValidWord(altword)) {
                 // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
                 words[wordnumber] = (word + " (" + TimeToTravel(altword) + ")");
@@ -120,6 +121,17 @@ function FixComma(word) {
                return fixedWord;
             }
         }
+    }
+    return word;
+}
+
+function RemoveChar(word) { // Removes ~ from word string that is being used for calculations
+    let indexpos = 0;
+    indexpos = word.indexOf("~");
+    if (indexpos != "-1") {
+    fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
+    //console.log(fixedWord);
+    return fixedWord;
     }
     return word;
 }
