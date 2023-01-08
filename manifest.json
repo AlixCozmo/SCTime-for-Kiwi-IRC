@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "SCTime Estimate for Kiwi IRC",
+  "description": "Supercruise travel time estimate tool for kiwi irc.",
+  "version": "1.2.2",
+  "author": "DavidByggerBilar",
+  "homepage_url": "https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC",
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.kiwi.fuelrats.com/*"],
+      "js": ["./extension.js"]
+    }
+  ]
+}
