@@ -16,9 +16,9 @@ function FindText() {
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    elems=document.getElementsByClassName("gb_m"); //testing purposes
+    //elems=document.getElementsByClassName("gb_m"); //testing purposes
 
-    //elems=document.getElementsByClassName("kiwi-messagelist-body");
+    elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
