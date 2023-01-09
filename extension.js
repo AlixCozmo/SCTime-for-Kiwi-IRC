@@ -53,7 +53,8 @@ function FindText() {
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
             word=words[wordnumber];
             altword=word.toLowerCase();
-            altword = FixComma(word);
+            console.log(altword);
+            altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
                 abort = false;
@@ -90,10 +91,6 @@ function IsDistanceWord(word) {
         if(word.endsWith("kly")) { // intentionally disabled
             return false;
         }
-        if(word.endsWith("ls")) {
-            distanceunit = "ls";
-            return true;
-        }
         if(word.endsWith("mm")) {
             distanceunit = "mm";
             return true;
@@ -104,6 +101,10 @@ function IsDistanceWord(word) {
         }
         if(word.endsWith("ly")) {
             distanceunit = "ly";
+            return true;
+        }
+        if(word.endsWith("ls")) {
+            distanceunit = "ls";
             return true;
         }
     return false;
@@ -122,7 +123,6 @@ function IsGMessage() {
 }
 
 function FixComma(word) {
-    let indexpos = 0;
     let dotCount = 0;
     let fixedWord = word;
     for (let x = 0; x < word.length+1; x++) {
@@ -171,6 +171,7 @@ function IsValidWord(word) {
     if (IsGMessage()) {
         if (IsNumberWord(word)) {
             if (IsDistanceWord(word)) {
+                console.log(distanceunit);
                 if (CheckForError(word)) { 
                 return true;
             } else return false;
@@ -192,8 +193,6 @@ function CheckForError(word) { // Checks for errors
     if (IsNumberWord(word)) {
         if (IsNumberWordEnd(word)) {
             console.log("word in: " + word);
-            let dotindex = 0;
-            let isnotnumber = false;
             //dotindex = word.indexOf(".");
             //console.log("dotindex: " + dotindex)
             for(let i=0; i < word.length+1; i++) {
@@ -385,4 +384,3 @@ function CrTimeString(totalSeconds) {
     //console.log("ft" + formattedTime);
     return formattedTime;
 }
-
