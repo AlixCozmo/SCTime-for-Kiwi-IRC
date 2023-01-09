@@ -2,9 +2,12 @@ var messagetext = "";
 var nicktext = "";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
+var distanceunit = "";
+var distanceval = "";
 //console.log("start!");
 
 function FindText() {
+    //console.log("ft");
     let elems = null;
     let nick = null;
     let words = null, word = "";
@@ -13,9 +16,9 @@ function FindText() {
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    //elems=document.getElementsByClassName("gb_j"); //testing purposes
+    elems=document.getElementsByClassName("gb_m"); //testing purposes
 
-    elems=document.getElementsByClassName("kiwi-messagelist-body");
+    //elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
@@ -51,10 +54,14 @@ function FindText() {
             word=words[wordnumber];
             altword=word.toLowerCase();
             altword = FixComma(word);
-            altword = RemoveChar(word);
+            altword = RemoveChar(altword);
+            if (abort == true) {
+                abort = false;
+                continue;
+            }
             if(IsValidWord(altword)) {
                 // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
-                words[wordnumber] = (word + " (" + TimeToTravel(altword) + ")");
+                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
                 if (abort == true) {
@@ -73,24 +80,36 @@ setInterval(FindText, 3500);
 
 function IsDistanceWord(word) {
         if(word.endsWith("kls")) {
+            distanceunit = "kls";
             return true;
         }
         if(word.endsWith("mls")) {
+            distanceunit = "mls";
             return true;
         }
         if(word.endsWith("kly")) { // intentionally disabled
             return false;
         }
         if(word.endsWith("ls")) {
+            distanceunit = "ls";
+            return true;
+        }
+        if(word.endsWith("mm")) {
+            distanceunit = "mm";
+            return true;
+        }
+        if(word.endsWith("km")) {
+            distanceunit = "km";
             return true;
         }
         if(word.endsWith("ly")) {
+            distanceunit = "ly";
             return true;
         }
     return false;
 }
 
-function IsSupportedMessage() {
+function IsGMessage() {
     if (messagetext.includes("-g")) {
         //console.log("-g detected!");
         destinationGravity = true;
@@ -105,22 +124,33 @@ function IsSupportedMessage() {
 function FixComma(word) {
     let indexpos = 0;
     let dotCount = 0;
-    let fixedWord = "";
-    for (let x = 0; x < 2; x++) {
-        indexpos = word.indexOf(".", indexpos+1);
-        console.log("indexpos: " + indexpos);
-        if (indexpos != "-1") {
-            //console.log("bef: " + dotCount);
+    let fixedWord = word;
+    for (let x = 0; x < word.length+1; x++) {
+        if (word.charAt(x) == ".") {
             dotCount += 1;
-            //console.log("aft:" + dotCount);
-            if (dotCount > 1) {
-                console.log("more than 1 comma has been detected, ignoring commas after the first one..");
-               fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
-               //console.log("word: " + word);
-               //console.log("fixedword: " + fixedWord); 
+            console.log("dotcount: " + dotCount);
+            console.log("x: " + x);
+            console.log("wordlength: " + word.length);
+        }
+            if (dotCount > 1 && x == word.length) {
+                console.log("more than 1 comma has been detected, aborting..");
+
+                // COMING SOON(maybe idk)
+
+                /*
+                 for (let i = 0; i < dotCount; i++) { // The reason I have decided to replace all dots with nothing if the amount of dots
+                    // exceed 1 is because if someone types "200000000"ls as "200.000.000" and the extension interpretes it as "200" then
+                    // they will get false information which is something i'd like to avoid.
+                    // Since 200.000 will otherwise get interpreted as 200 I have decided to remove all dots if they are more than 1 as that
+                    // will in my opinion reduce the likelyhood of false information being injected.
+                    // Why would someone type "200.000" if they meant "200"?
+                        fixedWord = fixedWord.replace(".", ""); // replaces dots with nothing
+                        console.log(fixedWord);
+                    }
+                    */
+                   abort = true;
                return fixedWord;
             }
-        }
     }
     return word;
 }
@@ -138,51 +168,99 @@ function RemoveChar(word) { // Removes ~ from word string that is being used for
 
 function IsValidWord(word) {
     //console.log("checking if word is valid");
-    if (IsSupportedMessage()) {
+    if (IsGMessage()) {
         if (IsNumberWord(word)) {
             if (IsDistanceWord(word)) {
+                if (CheckForError(word)) { 
                 return true;
             } else return false;
+        }
         }
     } return false;
 }
 
-function IsNumberWord(word) {
-    if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
-       word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
-       word.startsWith("8") || word.startsWith("9")) {
-        return true;
+function SliceWord(word) {
+    console.log("word bef: " + word);
+    word = word.replace(distanceunit, "");
+    console.log("word aft: " + word);
+    distanceval = word;
+    return word;
+}
+
+function CheckForError(word) { // Checks for errors
+    word = SliceWord(word);
+    if (IsNumberWord(word)) {
+        if (IsNumberWordEnd(word)) {
+            console.log("word in: " + word);
+            let dotindex = 0;
+            let isnotnumber = false;
+            //dotindex = word.indexOf(".");
+            //console.log("dotindex: " + dotindex)
+            for(let i=0; i < word.length+1; i++) {
+                console.log("word: " + word[i]);
+                console.log("i: " + i);
+                console.log(word.length);
+                if(word[i]=='0' || word[i]=='1' || word[i]=='2' || word[i]=='4' || word[i]=='5' 
+                || word[i]=='6' || word[i]=='7' || word[i]=='8' || word[i]=='9' || word[i]=='.') {
+                    if (i == word.length-1) {
+                    console.log("return true number");
+                    return true;
+                    }
+                } else {
+                    console.log("Warning! Invalid characters detected in distance!");
+                    return false;
+                }
+                /*
+                if (isnotnumber == false && i != dotindex && i == word.length) {
+                    console.log("return true number");
+                    return true;
+                } else if (isnotnumber == true && i == dotindex && i == word.length) {
+                    console.log("Warning! Invalid characters detected in distance!");
+                    return false;
+                }
+                */
+            }
+            
+        } else {
+            console.log("Warning! Invalid characters detected in end of distance!");
+            return false;
+        }
+    } else {
+        console.log("Warning! Invalid characters detected in start of distance!");
+        return false;
+    }
+}
+
+function IsNumberWord(word) { // true is for startsWith and false is for endsWith
+        if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
+            word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
+            word.startsWith("8") || word.startsWith("9")) {
+                return true;
+        } else return false;
+}
+
+function IsNumberWordEnd(word) {
+    console.log("loc false, word: " + word);
+    if(word.endsWith("0") || word.endsWith("1") || word.endsWith("2") || word.endsWith("3") || 
+        word.endsWith("4") || word.endsWith("5") || word.endsWith("6") || word.endsWith("7") || 
+        word.endsWith("8") || word.endsWith("9")) {
+        console.log("return true");
+               return true;
     } else return false;
 }
 
 // Calculates the time to travel the distance that the word represents
 // and returns it as a string in th form "<number of days>d<number of hours>t<number of minutes>m<number of seconds>s" 
 // for example "3d17t5m19s" for 3 days, 17 hours, 5 minurtes, and 19 seconds
-function TimeToTravel(word) {
-    let slicePoint = -1; // used to know where to slice string
-    let Word1;
-    let Word2;
+function TimeToTravel(distv, distu) {
     let SCTime = 0;
-    let successcheck = 0;
     let distnumber = 0;
-    successcheck = slicePoint = word.indexOf("kls");
-    if (successcheck == "-1") {
-        successcheck = slicePoint = word.indexOf("mls");
-    }
-    if (successcheck == "-1") {
-    successcheck = slicePoint = word.indexOf("ls");
-    }
-    if (successcheck == "-1") {
-    slicePoint = word.indexOf("ly");
-    }
-    Word1 = word.slice(slicePoint);
-    Word2 = word.slice(0, slicePoint);
     //console.log("wordthingy");
     //console.log("slicepoint:" + slicePoint);
     //console.log(Word1);
     //console.log(Word2);
-    distnumber = Number(Word2);
-    if (Word1 == "ly") {
+    distnumber = Number(distv);
+    if (distu == "ly") {
         if (distnumber > 1) {
             console.log("aborting! ly is over 1ly!");
             abort = true;
@@ -192,36 +270,14 @@ function TimeToTravel(word) {
             return;
         }
     }
-    SCTime = CalculateSCTime(Word2, Word1);
+    SCTime = CalculateSCTime(distv, distu);
     return SCTime;
 }
-
-/*
-// Inject characters
-function CharacterInject(element) {
-    console.log("messagetext2:" + messagetext);
-    console.log("wordwherecount2:" + wordwherecount);
-    console.log("running characterinject");
-    console.log(element.innerText);
-    messagetext = element.innerText;
-    console.log("messagetext3:" + messagetext);
-    //Recreatemsg();
-    CalculateSCTime();
-    SCTimePackaged = "(" + (SCTime) + ")";
-    console.log("sctimepackaged:" + SCTimePackaged);
-    //messagetext.innerText.replaceAt(wordwherecount+2, (SCTimePackaged));
-    //element.innerHTML.replace(/(messagetext)/g, messagetext + (SCTimePackaged));
-    element.innerText = (messagetext + (SCTimePackaged));
-    //msgstringonlynumber = ""; // sets msgstringonlynumber to nothing
-    //console.log(document.body.innertext = document.body.innerText);
-    //document.body.innerText = document.body.innerText.replaceAt(wordwherecount+2, (SCTimePackaged));
-    //console.log(document.body.innertext = document.body.innerText);
-}
-*/
 
 function ResetVariables() {
     messagetext = "";
     destinationGravity = false;
+    distanceunit = "";
 }
 
 function CalculateSCTime(distance, distanceunit) {
@@ -229,12 +285,13 @@ function CalculateSCTime(distance, distanceunit) {
     let totalseconds = 0;
     let SCTime = 0;
     distancefixed = ConvertToLS(distance, distanceunit);
+    console.log(distancefixed);
     //console.log("dist" + distancefixed);
     totalseconds = CalcTotSeconds(distancefixed);
     //console.log("tots" + totalseconds);
     SCTime = CrTimeString(totalseconds);
-    //console.log(SCTime);
-    if (SCTime == "NaNs") {
+    console.log("sctime: " + SCTime);
+    if (SCTime == "(NaNs)") {
         return "(an error has occurred)";
     }
     return SCTime;
@@ -245,29 +302,35 @@ function CalculateSCTime(distance, distanceunit) {
         'ls': 1,
         'kls': 1000,
         'mls': 1000000,
-        'ly': 31557600
+        'ly': 31557600,
     }
     console.log("dstnum" + dstNum);
     console.log("dstunit" + dstUnit);
     // ** Convert to light seconds ** \\
     if (dstUnit == "ls") {
-        //console.log("1");
         return dstNum;
     }
     if (dstUnit == "kls") {
-        //console.log("2");
         dstNum = dstNum * unitFactors["kls"];
-        //console.log("dstnum2:" + dstNum);
         return dstNum;
     }
     if (dstUnit == "mls") {
-        //console.log("3");
         dstNum = dstNum * unitFactors["mls"];
         return dstNum;
     }
     if (dstUnit == "ly") {
-        //console.log("4");
         dstNum = dstNum * unitFactors["ly"];
+        return dstNum;
+    }
+     // ** Convert to km and then to lightseconds ** \\
+     if (dstUnit == "km") {
+        dstNum = dstNum / 299792;
+        console.log(dstNum);
+        return dstNum;
+    }
+    if (dstUnit == "mm") {
+        dstNum = dstNum * 1000;
+        dstNum = dstNum / 299792;
         return dstNum;
     }
 }
