@@ -6,6 +6,15 @@ var distanceunit = "";
 var distanceval = "";
 //console.log("start!");
 
+
+
+
+// TODO
+
+// Add support for numbers with spaces in between the numbers
+// add support for more than 1 commas
+// add support for .10ly(example)
+
 function FindText() {
     //console.log("ft");
     let elems = null;
@@ -95,10 +104,10 @@ function IsDistanceWord(word) {
             distanceunit = "mm";
             return true;
         }
-        if(word.endsWith("km")) {
+       /* if(word.endsWith("km")) {
             distanceunit = "km";
             return true;
-        }
+        }*/
         if(word.endsWith("ly")) {
             distanceunit = "ly";
             return true;
@@ -181,9 +190,9 @@ function IsValidWord(word) {
 }
 
 function SliceWord(word) {
-    console.log("word bef: " + word);
+    //console.log("word bef: " + word);
     word = word.replace(distanceunit, "");
-    console.log("word aft: " + word);
+    //console.log("word aft: " + word);
     distanceval = word;
     return word;
 }
@@ -192,17 +201,17 @@ function CheckForError(word) { // Checks for errors
     word = SliceWord(word);
     if (IsNumberWord(word)) {
         if (IsNumberWordEnd(word)) {
-            console.log("word in: " + word);
+            //console.log("word in: " + word);
             //dotindex = word.indexOf(".");
             //console.log("dotindex: " + dotindex)
             for(let i=0; i < word.length+1; i++) {
-                console.log("word: " + word[i]);
-                console.log("i: " + i);
+                ///console.log("wordi: " + word[i]);
+                //console.log("i: " + i);
                 console.log(word.length);
-                if(word[i]=='0' || word[i]=='1' || word[i]=='2' || word[i]=='4' || word[i]=='5' 
+                if(word[i]=='0' || word[i]=='1' || word[i]=='2' || word[i]=='3' || word[i]=='4' || word[i]=='5' 
                 || word[i]=='6' || word[i]=='7' || word[i]=='8' || word[i]=='9' || word[i]=='.') {
                     if (i == word.length-1) {
-                    console.log("return true number");
+                    //console.log("return true number");
                     return true;
                     }
                 } else {
@@ -293,6 +302,10 @@ function CalculateSCTime(distance, distanceunit) {
     if (SCTime == "(NaNs)") {
         return "(an error has occurred)";
     }
+    if (SCTime == "(0)") {
+        abort = true;
+        return "(error. totalseconds is equal to 0.)"
+    }
     return SCTime;
  }
 
@@ -322,11 +335,11 @@ function CalculateSCTime(distance, distanceunit) {
         return dstNum;
     }
      // ** Convert to km and then to lightseconds ** \\
-     if (dstUnit == "km") {
+    /* if (dstUnit == "km") {
         dstNum = dstNum / 299792;
         console.log(dstNum);
         return dstNum;
-    }
+    }*/
     if (dstUnit == "mm") {
         dstNum = dstNum * 1000;
         dstNum = dstNum / 299792;
