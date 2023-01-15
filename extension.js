@@ -14,6 +14,7 @@ var distanceval = "";
 // Add support for numbers with spaces in between the numbers
 // add support for more than 1 commas
 // add support for .10ly(example)
+// add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
     //console.log("ft");
