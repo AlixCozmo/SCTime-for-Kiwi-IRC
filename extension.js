@@ -5,6 +5,10 @@ var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
 //console.log("start!");
+var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
+var distancevalindex = 0;
+var word2 = "";
+
 
 
 
@@ -14,13 +18,17 @@ var distanceval = "";
 // Add support for numbers with spaces in between the numbers
 // add support for more than 1 commas
 // add support for .10ly(example)
+// add support for detecting if number is only zeros, (it's supposed to ignore those)
+
+
+// DONE
 // add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
     //console.log("ft");
     let elems = null;
     let nick = null;
-    let words = null, word = "";
+    let words = null; let word = "";
     let altword = ""; // similar to word except it's only used for calculations
     let newMessageText = "";
 
@@ -70,9 +78,14 @@ function FindText() {
                 abort = false;
                 continue;
             }
-            if(IsValidWord(altword)) {
+            wordnumber2 = wordnumber;
+            if(IsValidWord(altword, wordnumber, words)) {
                 // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
+                if (distanceunitspaced == false) {
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                } else {
+                words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
                 if (abort == true) {
@@ -89,20 +102,25 @@ function FindText() {
 }
 setInterval(FindText, 3500);
 
-function IsDistanceWord(word) {
+function IsDistanceWord(word, wordnumber, words) {
+    let word2 = "";
         if(word.endsWith("kls")) {
             distanceunit = "kls";
+            distanceunitspaced = false;
             return true;
         }
         if(word.endsWith("mls")) {
             distanceunit = "mls";
+            distanceunitspaced = false;
             return true;
         }
         if(word.endsWith("kly")) { // intentionally disabled
+            distanceunitspaced = false;
             return false;
         }
         if(word.endsWith("mm")) {
             distanceunit = "mm";
+            distanceunitspaced = false;
             return true;
         }
        /* if(word.endsWith("km")) {
@@ -111,14 +129,52 @@ function IsDistanceWord(word) {
         }*/
         if(word.endsWith("ly")) {
             distanceunit = "ly";
+            distanceunitspaced = false;
             return true;
         }
         if(word.endsWith("ls")) {
             distanceunit = "ls";
+            distanceunitspaced = false;
             return true;
         }
-    return false;
-}
+
+        word2=words[distancevalindex+1];
+            if(word2.endsWith("kls")) {
+                distanceunit = "kls";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.endsWith("mls")) {
+                distanceunit = "mls";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.endsWith("kly")) { // intentionally disabled
+                distanceunitspaced = true;
+                return false;
+            }
+            if(word2.endsWith("mm")) {
+                distanceunit = "mm";
+                distanceunitspaced = true;
+                return true;
+            }
+           /* if(word.endsWith("km")) {
+                distanceunit = "km";
+                return true;
+            }*/
+            if(word2.endsWith("ly")) {
+                distanceunit = "ly";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.endsWith("ls")) {
+                distanceunit = "ls";
+                distanceunitspaced = true;
+                return true;
+            }
+            console.log("No valid distance unit found");
+            return false;
+        }
 
 function IsGMessage() {
     if (messagetext.includes("-g")) {
@@ -176,11 +232,11 @@ function RemoveChar(word) { // Removes ~ from word string that is being used for
     return word;
 }
 
-function IsValidWord(word) {
+function IsValidWord(word, wordnumber, words) {
     //console.log("checking if word is valid");
     if (IsGMessage()) {
-        if (IsNumberWord(word)) {
-            if (IsDistanceWord(word)) {
+        if (IsNumberWord(word, wordnumber)) {
+            if (IsDistanceWord(word, wordnumber, words)) {
                 console.log(distanceunit);
                 if (CheckForError(word)) { 
                 return true;
@@ -240,10 +296,13 @@ function CheckForError(word) { // Checks for errors
     }
 }
 
-function IsNumberWord(word) { // true is for startsWith and false is for endsWith
+function IsNumberWord(word, wordnumber) { // true is for startsWith and false is for endsWith
         if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
             word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
             word.startsWith("8") || word.startsWith("9")) {
+                distancevalindex = wordnumber;
+                console.log("wordnumbervalid: " + wordnumber);
+                console.log("distindex: " + distancevalindex);
                 return true;
         } else return false;
 }
@@ -287,6 +346,7 @@ function ResetVariables() {
     messagetext = "";
     destinationGravity = false;
     distanceunit = "";
+    distancevalindex = 0;
 }
 
 function CalculateSCTime(distance, distanceunit) {
@@ -303,10 +363,12 @@ function CalculateSCTime(distance, distanceunit) {
     if (SCTime == "(NaNs)") {
         return "(an error has occurred)";
     }
-    if (SCTime == "(0)") {
+   /* if (totalseconds == 0) {
+        console.log("totalseconds is 0");
         abort = true;
         return "(error. totalseconds is equal to 0.)"
     }
+    */
     return SCTime;
  }
 
