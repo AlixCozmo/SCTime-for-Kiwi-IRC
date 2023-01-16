@@ -11,8 +11,6 @@ var word2 = "";
 
 
 
-
-
 // TODO
 
 // Add support for numbers with spaces in between the numbers
