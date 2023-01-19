@@ -32,7 +32,7 @@ function FindText() {
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    //elems=document.getElementsByClassName("gb_m"); //testing purposes
+    //elems=document.getElementsByClassName("gb_n"); //testing purposes
 
     elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
@@ -135,8 +135,17 @@ function IsDistanceWord(word, wordnumber, words) {
             distanceunitspaced = false;
             return true;
         }
-
-        word2=words[distancevalindex+1];
+        console.log("bef:" + word2);
+        console.log("wordnumber:" + wordnumber);
+        if (words.length > 1) {
+            console.log(words);
+            word2=words[wordnumber+1];
+            console.log("+1");
+        }
+        else {
+            word2=words[wordnumber];
+        }
+        console.log("aft:" + word2);
             if(word2.endsWith("kls")) {
                 distanceunit = "kls";
                 distanceunitspaced = true;
@@ -294,13 +303,10 @@ function CheckForError(word) { // Checks for errors
     }
 }
 
-function IsNumberWord(word, wordnumber) { // true is for startsWith and false is for endsWith
+function IsNumberWord(word) { // true is for startsWith and false is for endsWith
         if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
             word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
             word.startsWith("8") || word.startsWith("9")) {
-                distancevalindex = wordnumber;
-                console.log("wordnumbervalid: " + wordnumber);
-                console.log("distindex: " + distancevalindex);
                 return true;
         } else return false;
 }
