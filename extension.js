@@ -69,7 +69,7 @@ function FindText() {
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
             word=words[wordnumber];
             altword=word.toLowerCase();
-            console.log(altword);
+            //console.log(altword);
             altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
@@ -135,17 +135,17 @@ function IsDistanceWord(word, wordnumber, words) {
             distanceunitspaced = false;
             return true;
         }
-        console.log("bef:" + word2);
-        console.log("wordnumber:" + wordnumber);
+        //console.log("bef:" + word2);
+        //console.log("wordnumber:" + wordnumber);
         if (words.length > 1) {
-            console.log(words);
+           // console.log(words);
             word2=words[wordnumber+1];
-            console.log("+1");
+            //console.log("+1");
         }
         else {
             word2=words[wordnumber];
         }
-        console.log("aft:" + word2);
+       // console.log("aft:" + word2);
             if(word2.endsWith("kls")) {
                 distanceunit = "kls";
                 distanceunitspaced = true;
@@ -201,9 +201,9 @@ function FixComma(word) {
     for (let x = 0; x < word.length+1; x++) {
         if (word.charAt(x) == ".") {
             dotCount += 1;
-            console.log("dotcount: " + dotCount);
-            console.log("x: " + x);
-            console.log("wordlength: " + word.length);
+            //console.log("dotcount: " + dotCount);
+            //console.log("x: " + x);
+            //console.log("wordlength: " + word.length);
         }
             if (dotCount > 1 && x == word.length) {
                 console.log("more than 1 comma has been detected, aborting..");
@@ -244,7 +244,7 @@ function IsValidWord(word, wordnumber, words) {
     if (IsGMessage()) {
         if (IsNumberWord(word, wordnumber)) {
             if (IsDistanceWord(word, wordnumber, words)) {
-                console.log(distanceunit);
+                //console.log(distanceunit);
                 if (CheckForError(word)) { 
                 return true;
             } else return false;
