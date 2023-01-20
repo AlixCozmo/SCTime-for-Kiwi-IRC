@@ -143,7 +143,7 @@ function IsDistanceWord(word, wordnumber, words) {
             //console.log("+1");
         }
         else {
-            word2=words[wordnumber];
+            if (word2 != null) {
         }
        // console.log("aft:" + word2);
             if(word2.endsWith("kls")) {
@@ -181,6 +181,7 @@ function IsDistanceWord(word, wordnumber, words) {
             }
             console.log("No valid distance unit found");
             return false;
+            }
         }
 
 function IsGMessage() {
