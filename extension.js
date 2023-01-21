@@ -23,7 +23,7 @@ var word2 = "";
 // add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
-    //console.log("ft");
+    console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
@@ -65,18 +65,17 @@ function FindText() {
         messagetext = messagetext.replace(",", "."); // replaces comma(',' with a dot '.')
         //console.log("msgtext: " + messagetext);
         words=messagetext.split(" ");
-        //console.log(words);
+        console.log(words);
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
             word=words[wordnumber];
             altword=word.toLowerCase();
-            //console.log(altword);
+            console.log(altword);
             altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
                 abort = false;
                 continue;
             }
-            wordnumber2 = wordnumber;
             if(IsValidWord(altword, wordnumber, words)) {
                 // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
                 if (distanceunitspaced == false) {
@@ -135,16 +134,16 @@ function IsDistanceWord(word, wordnumber, words) {
             distanceunitspaced = false;
             return true;
         }
-        //console.log("bef:" + word2);
         //console.log("wordnumber:" + wordnumber);
+        else {
+            console.log("words:" + words.length);
         if (words.length > 1) {
            // console.log(words);
             word2=words[wordnumber+1];
             //console.log("+1");
         }
-        else {
-            if (word2 != null) {
-        }
+            console.log("wd2:" + word2);
+        
        // console.log("aft:" + word2);
             if(word2.endsWith("kls")) {
                 distanceunit = "kls";
@@ -240,13 +239,16 @@ function RemoveChar(word) { // Removes ~ from word string that is being used for
     return word;
 }
 
-function IsValidWord(word, wordnumber, words) {
-    //console.log("checking if word is valid");
+function IsValidWord(altword, wordnumber, words) {
+    console.log("checking if word is valid");
     if (IsGMessage()) {
-        if (IsNumberWord(word, wordnumber)) {
-            if (IsDistanceWord(word, wordnumber, words)) {
+        console.log("gpass");
+        if (IsNumberWord(altword)) {
+            console.log("numberpass");
+            if (IsDistanceWord(altword, wordnumber, words)) {
+                console.log("distpass");
                 //console.log(distanceunit);
-                if (CheckForError(word)) { 
+                if (CheckForError(altword)) { 
                 return true;
             } else return false;
         }
@@ -305,6 +307,7 @@ function CheckForError(word) { // Checks for errors
 }
 
 function IsNumberWord(word) { // true is for startsWith and false is for endsWith
+    console.log(word);
         if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
             word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
             word.startsWith("8") || word.startsWith("9")) {
