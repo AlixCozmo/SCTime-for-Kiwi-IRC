@@ -7,8 +7,6 @@ var distanceval = "";
 //console.log("start!");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
-var word2 = "";
-
 
 
 // TODO
@@ -65,11 +63,11 @@ function FindText() {
         messagetext = messagetext.replace(",", "."); // replaces comma(',' with a dot '.')
         //console.log("msgtext: " + messagetext);
         words=messagetext.split(" ");
-        console.log(words);
+        //console.log(words);
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
             word=words[wordnumber];
             altword=word.toLowerCase();
-            console.log(altword);
+            //console.log(altword);
             altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
@@ -141,7 +139,7 @@ function IsDistanceWord(word, wordnumber, words) {
            // console.log(words);
             word2=words[wordnumber+1];
             //console.log("+1");
-        }
+        
             console.log("wd2:" + word2);
         
        // console.log("aft:" + word2);
@@ -181,6 +179,7 @@ function IsDistanceWord(word, wordnumber, words) {
             console.log("No valid distance unit found");
             return false;
             }
+        }
         }
 
 function IsGMessage() {
@@ -242,11 +241,11 @@ function RemoveChar(word) { // Removes ~ from word string that is being used for
 function IsValidWord(altword, wordnumber, words) {
     console.log("checking if word is valid");
     if (IsGMessage()) {
-        console.log("gpass");
+        //console.log("gpass");
         if (IsNumberWord(altword)) {
-            console.log("numberpass");
+            //console.log("numberpass");
             if (IsDistanceWord(altword, wordnumber, words)) {
-                console.log("distpass");
+                //console.log("distpass");
                 //console.log(distanceunit);
                 if (CheckForError(altword)) { 
                 return true;
