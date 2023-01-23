@@ -141,6 +141,7 @@ function IsDistanceWord(word, wordnumber, words) {
             //console.log("+1");
         
             console.log("wd2:" + word2);
+            if (word2 != null) {
         
        // console.log("aft:" + word2);
             if(word2.endsWith("kls")) {
@@ -179,6 +180,7 @@ function IsDistanceWord(word, wordnumber, words) {
             console.log("No valid distance unit found");
             return false;
             }
+        }
         }
         }
 
@@ -306,7 +308,7 @@ function CheckForError(word) { // Checks for errors
 }
 
 function IsNumberWord(word) { // true is for startsWith and false is for endsWith
-    console.log(word);
+    //console.log(word);
         if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
             word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
             word.startsWith("8") || word.startsWith("9")) {
@@ -315,7 +317,7 @@ function IsNumberWord(word) { // true is for startsWith and false is for endsWit
 }
 
 function IsNumberWordEnd(word) {
-    console.log("loc false, word: " + word);
+    //console.log("loc false, word: " + word);
     if(word.endsWith("0") || word.endsWith("1") || word.endsWith("2") || word.endsWith("3") || 
         word.endsWith("4") || word.endsWith("5") || word.endsWith("6") || word.endsWith("7") || 
         word.endsWith("8") || word.endsWith("9")) {
