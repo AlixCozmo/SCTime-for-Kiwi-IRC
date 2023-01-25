@@ -207,7 +207,7 @@ function FixComma(word) {
             //console.log("wordlength: " + word.length);
         }
             if (dotCount > 1 && x == word.length) {
-                console.log("more than 1 comma has been detected, aborting..");
+                //console.log("more than 1 comma has been detected, aborting..");
 
                 // COMING SOON(maybe idk)
 
@@ -241,7 +241,7 @@ function RemoveChar(word) { // Removes ~ from word string that is being used for
 }
 
 function IsValidWord(altword, wordnumber, words) {
-    console.log("checking if word is valid");
+    //console.log("checking if word is valid");
     if (IsGMessage()) {
         //console.log("gpass");
         if (IsNumberWord(altword)) {
@@ -250,7 +250,9 @@ function IsValidWord(altword, wordnumber, words) {
                 //console.log("distpass");
                 //console.log(distanceunit);
                 if (CheckForError(altword)) { 
-                return true;
+                    if (isNotZero == true) { // Checks if the number only contains zeros.
+                        return true;
+                    }
             } else return false;
         }
         }
@@ -263,6 +265,15 @@ function SliceWord(word) {
     //console.log("word aft: " + word);
     distanceval = word;
     return word;
+}
+
+function isNotZero(word) {
+    if (word == 0) {
+        console.warn("Caution! Number is zero! number: " + word);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function CheckForError(word) { // Checks for errors
