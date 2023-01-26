@@ -231,12 +231,18 @@ function FixComma(word) {
 
 function RemoveChar(word) { // Removes ~ from word string that is being used for calculations
     let indexpos = 0;
+    let indexpos2 = 0;
     indexpos = word.indexOf("~");
+    indexpos2 = word.indexOf("˜");
     if (indexpos != "-1") {
     fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
     //console.log(fixedWord);
-    return fixedWord;
     }
+    if (indexpos2 != "-1") {
+        fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
+        //console.log(fixedWord);
+        return fixedWord;
+        }
     return word;
 }
 
