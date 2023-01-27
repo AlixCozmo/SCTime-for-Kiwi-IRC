@@ -21,7 +21,7 @@ var distancevalindex = 0;
 // add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
-    console.log("ft");
+    //console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
@@ -251,11 +251,11 @@ function IsValidWord(altword, wordnumber, words) {
                 //console.log(distanceunit);
                 if (CheckForError(altword)) {
                     distanceval = parseNumber(altword);
-                    if (isNotZero == true) { // Checks if the number only contains zeros.
+                    //if (isNotZero == true) { // Checks if the number only contains zeros.
                         return true;
-                    }
-            } else return false;
-        }
+                    //}
+                } else return false;
+            }
         }
     } return false;
 }
@@ -279,9 +279,9 @@ function SliceWord(word) {
 function isNotZero(word) {
     if (word == 0) {
         console.warn("Caution! Number is zero! number: " + word);
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
 }
 
