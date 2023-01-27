@@ -255,7 +255,8 @@ function IsValidWord(altword, wordnumber, words) {
             if (IsDistanceWord(altword, wordnumber, words)) {
                 //console.log("distpass");
                 //console.log(distanceunit);
-                if (CheckForError(altword)) { 
+                if (CheckForError(altword)) {
+                    distanceval = parseNumber(altword);
                     if (isNotZero == true) { // Checks if the number only contains zeros.
                         return true;
                     }
@@ -263,6 +264,14 @@ function IsValidWord(altword, wordnumber, words) {
         }
         }
     } return false;
+}
+
+function parseNumber(altword) {
+    let distnum;
+    distnum = SliceWord(altword);
+    distnum = parseFloat(distnum);
+    console.log("parsed num: " + distnum);
+    return distnum;
 }
 
 function SliceWord(word) {
