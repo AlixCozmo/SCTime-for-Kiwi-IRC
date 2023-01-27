@@ -21,7 +21,7 @@ var distancevalindex = 0;
 // add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
-    //console.log("ft");
+    console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
@@ -68,7 +68,7 @@ function FindText() {
             word=words[wordnumber];
             altword=word.toLowerCase();
             //console.log(altword);
-            altword = FixComma(altword);
+            //altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
                 abort = false;
@@ -95,7 +95,7 @@ function FindText() {
         }
     }
 }
-setInterval(FindText, 3500);
+setInterval(FindText, 5000);
 
 function IsDistanceWord(word, wordnumber, words) {
     let word2 = "";
@@ -196,7 +196,7 @@ function IsGMessage() {
     }
 }
 
-function FixComma(word) {
+function FixComma(word) { // Removes commas if more than 1
     let dotCount = 0;
     let fixedWord = word;
     for (let x = 0; x < word.length+1; x++) {
@@ -231,18 +231,12 @@ function FixComma(word) {
 
 function RemoveChar(word) { // Removes ~ from word string that is being used for calculations
     let indexpos = 0;
-    let indexpos2 = 0;
     indexpos = word.indexOf("~");
-    indexpos2 = word.indexOf("˜");
     if (indexpos != "-1") {
     fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
     //console.log(fixedWord);
+    return fixedWord;
     }
-    if (indexpos2 != "-1") {
-        fixedWord = word.slice(0, indexpos) + word.slice(indexpos+1);
-        //console.log(fixedWord);
-        return fixedWord;
-        }
     return word;
 }
 
