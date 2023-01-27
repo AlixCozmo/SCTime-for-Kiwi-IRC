@@ -21,7 +21,7 @@ var distancevalindex = 0;
 // add support for messages that has the units in a different word(eg. 20 ls)
 
 function FindText() {
-    console.log("ft");
+    //console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
