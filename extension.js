@@ -95,7 +95,7 @@ function FindText() {
         }
     }
 }
-setInterval(FindText, 5000);
+setInterval(FindText, 6000);
 
 function IsDistanceWord(word, wordnumber, words) {
     let word2 = "";
@@ -134,13 +134,13 @@ function IsDistanceWord(word, wordnumber, words) {
         }
         //console.log("wordnumber:" + wordnumber);
         else {
-            console.log("words:" + words.length);
+            //console.log("words:" + words.length);
         if (words.length > 1) {
            // console.log(words);
             word2=words[wordnumber+1];
             //console.log("+1");
         
-            console.log("wd2:" + word2);
+            //console.log("wd2:" + word2);
             if (word2 != null) {
         
        // console.log("aft:" + word2);
@@ -177,7 +177,7 @@ function IsDistanceWord(word, wordnumber, words) {
                 distanceunitspaced = true;
                 return true;
             }
-            console.log("No valid distance unit found");
+            //console.log("No valid distance unit found");
             return false;
             }
         }
@@ -250,7 +250,7 @@ function IsValidWord(altword, wordnumber, words) {
                 //console.log("distpass");
                 //console.log(distanceunit);
                 if (CheckForError(altword)) {
-                    distanceval = parseNumber(altword);
+                    //distanceval = parseNumber(altword); // not necessary to use right now, won't make any difference
                     //if (isNotZero == true) { // Checks if the number only contains zeros.
                         return true;
                     //}
@@ -264,7 +264,7 @@ function parseNumber(altword) {
     let distnum;
     distnum = SliceWord(altword);
     distnum = parseFloat(distnum);
-    console.log("parsed num: " + distnum);
+    //console.log("parsed num: " + distnum);
     return distnum;
 }
 
@@ -295,7 +295,7 @@ function CheckForError(word) { // Checks for errors
             for(let i=0; i < word.length+1; i++) {
                 ///console.log("wordi: " + word[i]);
                 //console.log("i: " + i);
-                console.log(word.length);
+                //console.log(word.length);
                 if(word[i]=='0' || word[i]=='1' || word[i]=='2' || word[i]=='3' || word[i]=='4' || word[i]=='5' 
                 || word[i]=='6' || word[i]=='7' || word[i]=='8' || word[i]=='9' || word[i]=='.') {
                     if (i == word.length-1) {
@@ -303,7 +303,7 @@ function CheckForError(word) { // Checks for errors
                     return true;
                     }
                 } else {
-                    console.log("Warning! Invalid characters detected in distance!");
+                    //console.log("Warning! Invalid characters detected in distance!");
                     return false;
                 }
                 /*
@@ -318,11 +318,11 @@ function CheckForError(word) { // Checks for errors
             }
             
         } else {
-            console.log("Warning! Invalid characters detected in end of distance!");
+            //console.log("Warning! Invalid characters detected in end of distance!");
             return false;
         }
     } else {
-        console.log("Warning! Invalid characters detected in start of distance!");
+        //console.log("Warning! Invalid characters detected in start of distance!");
         return false;
     }
 }
@@ -341,7 +341,7 @@ function IsNumberWordEnd(word) {
     if(word.endsWith("0") || word.endsWith("1") || word.endsWith("2") || word.endsWith("3") || 
         word.endsWith("4") || word.endsWith("5") || word.endsWith("6") || word.endsWith("7") || 
         word.endsWith("8") || word.endsWith("9")) {
-        console.log("return true");
+        //console.log("return true");
                return true;
     } else return false;
 }
@@ -359,7 +359,7 @@ function TimeToTravel(distv, distu) {
     distnumber = Number(distv);
     if (distu == "ly") {
         if (distnumber > 1) {
-            console.log("aborting! ly is over 1ly!");
+            //console.log("aborting! ly is over 1ly!");
             abort = true;
             return;
         }
@@ -383,12 +383,12 @@ function CalculateSCTime(distance, distanceunit) {
     let totalseconds = 0;
     let SCTime = 0;
     distancefixed = ConvertToLS(distance, distanceunit);
-    console.log(distancefixed);
+    //console.log(distancefixed);
     //console.log("dist" + distancefixed);
     totalseconds = CalcTotSeconds(distancefixed);
     //console.log("tots" + totalseconds);
     SCTime = CrTimeString(totalseconds);
-    console.log("sctime: " + SCTime);
+    //console.log("sctime: " + SCTime);
     if (SCTime == "(NaNs)") {
         return "(an error has occurred)";
     }
@@ -408,8 +408,8 @@ function CalculateSCTime(distance, distanceunit) {
         'mls': 1000000,
         'ly': 31557600,
     }
-    console.log("dstnum" + dstNum);
-    console.log("dstunit" + dstUnit);
+    //console.log("dstnum" + dstNum);
+    //console.log("dstunit" + dstUnit);
     // ** Convert to light seconds ** \\
     if (dstUnit == "ls") {
         return dstNum;
@@ -472,8 +472,8 @@ function CrTimeString(totalSeconds) {
     let remainderSec = 0;
     let seconds = 0;
     hours = Math.floor(totalSeconds / 3600);
-    console.log("hour" + hours);
-    console.log("ts" + totalSeconds);
+    //console.log("hour" + hours);
+    //console.log("ts" + totalSeconds);
     remainderSec = Math.floor(totalSeconds % 3600);
     minutes = Math.floor(remainderSec / 60);
     seconds = Math.floor(totalSeconds % 60);
