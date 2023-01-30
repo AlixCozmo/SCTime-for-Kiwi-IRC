@@ -250,7 +250,7 @@ function IsValidWord(altword, wordnumber, words) {
                 //console.log("distpass");
                 //console.log(distanceunit);
                 if (CheckForError(altword)) {
-                    //distanceval = parseNumber(altword); // not necessary to use right now, won't make any difference
+                    distanceval = parseNumber(altword, wordnumber, words); // not necessary to use right now, won't make any difference
                     //if (isNotZero == true) { // Checks if the number only contains zeros.
                         return true;
                     //}
@@ -260,12 +260,30 @@ function IsValidWord(altword, wordnumber, words) {
     } return false;
 }
 
-function parseNumber(altword) {
-    let distnum;
+function parseNumber(altword, wordnumber, words) {
+    let totalstring = "";
+    let totalnum;
     distnum = SliceWord(altword);
-    distnum = parseFloat(distnum);
-    //console.log("parsed num: " + distnum);
-    return distnum;
+    for (let i = 0; i < wordnumber-1; i--) {
+        console.log("i: " + i);
+        if (CheckForError(words[x]) == true) {
+            totalstring = totalstring.concat(words[x]);
+        } else {
+            break;
+        }
+    }
+    totalstring = totalstring.concat(distnum);
+    for (let x = 0; x < wordnumber+1; x++) {
+        if (CheckForError(words[x]) == true) {
+            totalstring = totalstring.concat(words[x]);
+        } else {
+            break;
+        }
+    }
+    totalnum = parseFloat(totalstring);
+    //distnum = parseFloat(distnum);
+    console.log("parsed num: " + totalnum);
+    return totalnum;
 }
 
 function SliceWord(word) {
@@ -288,7 +306,7 @@ function isNotZero(word) {
 function CheckForError(word) { // Checks for errors
     word = SliceWord(word);
     if (IsNumberWord(word)) {
-        if (IsNumberWordEnd(word)) {
+        if (IsNumberWordEnd(word)) { // Checks if the string is only numbers or not
             //console.log("word in: " + word);
             //dotindex = word.indexOf(".");
             //console.log("dotindex: " + dotindex)
