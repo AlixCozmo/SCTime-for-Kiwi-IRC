@@ -264,24 +264,30 @@ function parseNumber(altword, wordnumber, words) {
     let totalstring = "";
     let totalnum;
     distnum = SliceWord(altword);
-    for (let i = 0; i < wordnumber-1; i--) {
-        console.log("i: " + i);
-        if (CheckForError(words[x]) == true) {
-            totalstring = totalstring.concat(words[x]);
-        } else {
-            break;
+    //console.log("wr: " + wordnumber);
+    if ((wordnumber) > 0) {
+        for (let i = wordnumber; i < wordnumber; i--) {
+            //console.log("i: " + i);
+            if (CheckForError(words[i]) == true) {
+                totalstring = totalstring.concat(SliceWord(words[i]));
+                Ä//console.log("wi: " + totalstring);
+            } else {
+                break;
+            }
         }
-    }
+}
     totalstring = totalstring.concat(distnum);
-    for (let x = 0; x < wordnumber+1; x++) {
+    for (let x = wordnumber; x < wordnumber; x++) {
         if (CheckForError(words[x]) == true) {
-            totalstring = totalstring.concat(words[x]);
+            totalstring = totalstring.concat(SliceWord(words[x]));
+            //console.log("wx: " + totalstring);
         } else {
             break;
         }
     }
     totalnum = parseFloat(totalstring);
     //distnum = parseFloat(distnum);
+    console.log("totstring " + totalstring);
     console.log("parsed num: " + totalnum);
     return totalnum;
 }
