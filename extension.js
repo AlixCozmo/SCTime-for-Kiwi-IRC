@@ -270,7 +270,7 @@ function parseNumber(altword, wordnumber, words) {
             //console.log("i: " + i);
             if (CheckForError(words[i]) == true) {
                 totalstring = totalstring.concat(SliceWord(words[i]));
-                Ä//console.log("wi: " + totalstring);
+                //console.log("wi: " + totalstring);
             } else {
                 break;
             }
