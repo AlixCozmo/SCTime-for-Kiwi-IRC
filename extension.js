@@ -11,7 +11,6 @@ var distancevalindex = 0;
 
 // TODO
 
-// Add support for numbers with spaces in between the numbers
 // add support for more than 1 commas
 // add support for .10ly(example)
 // add support for detecting if number is only zeros, (it's supposed to ignore those)
@@ -19,6 +18,7 @@ var distancevalindex = 0;
 
 // DONE
 // add support for messages that has the units in a different word(eg. 20 ls)
+// Add support for numbers with spaces in between the numbers
 
 function FindText() {
     //console.log("ft");
@@ -68,7 +68,7 @@ function FindText() {
             word=words[wordnumber];
             altword=word.toLowerCase();
             //console.log(altword);
-            //altword = FixComma(altword);
+            altword = FixComma(altword);
             altword = RemoveChar(altword);
             if (abort == true) {
                 abort = false;
@@ -208,7 +208,7 @@ function FixComma(word) { // Removes commas if more than 1
         }
             if (dotCount > 1 && x == word.length) {
                 //console.log("more than 1 comma has been detected, aborting..");
-
+                fixedWord = fixedWord.replace(".", " "); // if more than 1 commas, remove all commas. this should fix it but idk.
                 // COMING SOON(maybe idk)
 
                 /*
