@@ -144,21 +144,21 @@ function IsDistanceWord(word, wordnumber, words) {
             if (word2 != null) {
         
        // console.log("aft:" + word2);
-            if(word2.endsWith("kls")) {
+            if(word2.startsWith("kls")) {
                 distanceunit = "kls";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.endsWith("mls")) {
+            if(word2.startsWith("mls")) {
                 distanceunit = "mls";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.endsWith("kly")) { // intentionally disabled
+            if(word2.startsWith("kly")) { // intentionally disabled
                 distanceunitspaced = true;
                 return false;
             }
-            if(word2.endsWith("mm")) {
+            if(word2.startsWith("mm")) {
                 distanceunit = "mm";
                 distanceunitspaced = true;
                 return true;
@@ -167,12 +167,12 @@ function IsDistanceWord(word, wordnumber, words) {
                 distanceunit = "km";
                 return true;
             }*/
-            if(word2.endsWith("ly")) {
+            if(word2.startsWith("ly")) {
                 distanceunit = "ly";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.endsWith("ls")) {
+            if(word2.startsWith("ls")) {
                 distanceunit = "ls";
                 distanceunitspaced = true;
                 return true;
