@@ -99,66 +99,64 @@ setInterval(FindText, 6000);
 
 function IsDistanceWord(word, wordnumber, words) {
     let word2 = "";
-        if(word.endsWith("kls")) {
-            distanceunit = "kls";
-            distanceunitspaced = false;
-            return true;
-        }
-        if(word.endsWith("mls")) {
-            distanceunit = "mls";
-            distanceunitspaced = false;
-            return true;
-        }
-        if(word.endsWith("kly")) { // intentionally disabled
-            distanceunitspaced = false;
-            return false;
-        }
-        if(word.endsWith("mm")) {
-            distanceunit = "mm";
-            distanceunitspaced = false;
-            return true;
-        }
-       /* if(word.endsWith("km")) {
-            distanceunit = "km";
-            return true;
-        }*/
-        if(word.endsWith("ly")) {
-            distanceunit = "ly";
-            distanceunitspaced = false;
-            return true;
-        }
-        if(word.endsWith("ls")) {
-            distanceunit = "ls";
-            distanceunitspaced = false;
-            return true;
-        }
-        //console.log("wordnumber:" + wordnumber);
-        else {
-            //console.log("words:" + words.length);
-        if (words.length > 1) {
-           // console.log(words);
-            word2=words[wordnumber+1];
-            //console.log("+1");
-        
-            //console.log("wd2:" + word2);
-            if (word2 != null) {
-        
-       // console.log("aft:" + word2);
-            if(word2.startsWith("kls")) {
+    if(word.endsWith("kls")) {
+        distanceunit = "kls";
+        distanceunitspaced = false;
+        return true;
+    }
+    if(word.endsWith("mls")) {
+        distanceunit = "mls";
+        distanceunitspaced = false;
+        return true;
+    }
+    if(word.endsWith("kly")) { // intentionally disabled
+        distanceunitspaced = false;
+        return false;
+    }
+    if(word.endsWith("mm")) {
+        distanceunit = "mm";
+        distanceunitspaced = false;
+        return true;
+    }
+    /* if(word.endsWith("km")) {
+        distanceunit = "km";
+        return true;
+    }*/
+    if(word.endsWith("ly")) {
+        distanceunit = "ly";
+        distanceunitspaced = false;
+        return true;
+    }
+     if(word.endsWith("ls")) {
+        distanceunit = "ls";
+        distanceunitspaced = false;
+        return true;
+    }
+    //console.log("wordnumber:" + wordnumber);
+    else {
+        //console.log("words:" + words.length);
+    if (words.length > 1) {
+        // console.log(words);
+        word2=words[wordnumber+1];
+        //console.log("+1");
+        //console.log("wd2:" + word2);
+        if (word2 != null) {
+        // console.log("aft:" + word2);
+            if(word2.startsWith("kls") && word2.endsWith("kls")) {
                 distanceunit = "kls";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.startsWith("mls")) {
+            if(word2.startsWith("mls") && word2.endsWith("mls")) {
                 distanceunit = "mls";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.startsWith("kly")) { // intentionally disabled
+            if(word2.startsWith("kly") && word2.endsWith("kly")) { // intentionally disabled
                 distanceunitspaced = true;
                 return false;
             }
-            if(word2.startsWith("mm")) {
+            if(word2.startsWith("mm") && word2.endsWith("mm")) {
                 distanceunit = "mm";
                 distanceunitspaced = true;
                 return true;
@@ -167,12 +165,12 @@ function IsDistanceWord(word, wordnumber, words) {
                 distanceunit = "km";
                 return true;
             }*/
-            if(word2.startsWith("ly")) {
+            if(word2.startsWith("ly") && word2.endsWith("ly")) {
                 distanceunit = "ly";
                 distanceunitspaced = true;
                 return true;
             }
-            if(word2.startsWith("ls")) {
+            if(word2.startsWith("ls") && word2.endsWith("ls")) {
                 distanceunit = "ls";
                 distanceunitspaced = true;
                 return true;
