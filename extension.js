@@ -21,7 +21,7 @@ var distancevalindex = 0;
 // Add support for numbers with spaces in between the numbers
 
 function FindText() {
-    //console.log("ft");
+    console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
@@ -30,7 +30,7 @@ function FindText() {
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    //elems=document.getElementsByClassName("gb_n"); //testing purposes
+    //elems=document.getElementsByClassName("gb_q"); //testing purposes
 
     elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
@@ -75,10 +75,28 @@ function FindText() {
                 continue;
             }
             if(IsValidWord(altword, wordnumber, words)) {
-                // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
+               // console.log("distval" + distanceval);
+                // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"    
                 if (distanceunitspaced == false) {
+                    if ((IsNumberK(altword)) == true) { 
+                        let nmbr = Number(distanceval);
+                        //console.log("distval4" + nmbr);
+                        nmbr = nmbr * 1000;
+                        //console.log("distval5" + nmbr);
+                        distanceval = '' + nmbr;
+                    }
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
+                    if ((IsNumberK(altword)) == true) {
+                        let nmbr = Number(distanceval);
+                        console.log("distval4" + nmbr);
+                        nmbr = nmbr * 1000;
+                       // console.log(typeof nmbr);
+                        //console.log("distval5" + nmbr);
+                        //console.log("distval6" + distanceval);
+                        distanceval = '' + nmbr;
+                        //console.log("distval7" + distanceval);
+                    }
                 words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
@@ -182,7 +200,7 @@ function IsDistanceWord(word, wordnumber, words) {
         }
         }
 
-function IsGMessage() {
+function IsGMessage() { // Checks if message contains -g flag or not
     if (messagetext.includes("-g")) {
         //console.log("-g detected!");
         destinationGravity = true;
@@ -321,7 +339,7 @@ function CheckForError(word) { // Checks for errors
                 //console.log("i: " + i);
                 //console.log(word.length);
                 if(word[i]=='0' || word[i]=='1' || word[i]=='2' || word[i]=='3' || word[i]=='4' || word[i]=='5' 
-                || word[i]=='6' || word[i]=='7' || word[i]=='8' || word[i]=='9' || word[i]=='.') {
+                || word[i]=='6' || word[i]=='7' || word[i]=='8' || word[i]=='9' || word[i]=='.' || word[i]=='k' || word[i]=='K') {
                     if (i == word.length-1) {
                     //console.log("return true number");
                     return true;
@@ -355,7 +373,7 @@ function IsNumberWord(word) { // true is for startsWith and false is for endsWit
     //console.log(word);
         if(word.startsWith("0") || word.startsWith("1") || word.startsWith("2") || word.startsWith("3") || 
             word.startsWith("4") || word.startsWith("5") || word.startsWith("6") || word.startsWith("7") || 
-            word.startsWith("8") || word.startsWith("9")) {
+            word.startsWith("8") || word.startsWith("9") || word.endsWith("k") || word.endsWith("K")) {
                 return true;
         } else return false;
 }
@@ -364,11 +382,20 @@ function IsNumberWordEnd(word) {
     //console.log("loc false, word: " + word);
     if(word.endsWith("0") || word.endsWith("1") || word.endsWith("2") || word.endsWith("3") || 
         word.endsWith("4") || word.endsWith("5") || word.endsWith("6") || word.endsWith("7") || 
-        word.endsWith("8") || word.endsWith("9")) {
+        word.endsWith("8") || word.endsWith("9") || word.endsWith("k") || word.endsWith("K")) {
         //console.log("return true");
                return true;
     } else return false;
 }
+
+function IsNumberK(word) {
+    //console.log("loc false, word: " + word);
+    if(word.endsWith("k") || word.endsWith("K")) {
+        //console.log("return true");
+               return true;
+    } else return false;
+}
+
 
 // Calculates the time to travel the distance that the word represents
 // and returns it as a string in th form "<number of days>d<number of hours>t<number of minutes>m<number of seconds>s" 
