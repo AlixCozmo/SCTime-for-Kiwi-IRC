@@ -21,7 +21,7 @@ Method 2:
 
 You can also install the extension with the .xpi file, though this may not work on regular firefox installations as it is not signed. It should however work on firefox developer edition.
 
-If you want to try doing that, do this: go into about:addons in firefox, click on the cogwheel and select install addon from file, then choose the .xpi file.
+Go into about:addons in firefox, click on the cogwheel and select install addon from file, then choose the .xpi file.
 
 
 Example image:
