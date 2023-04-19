@@ -19,9 +19,10 @@ var distancevalindex = 0;
 // DONE
 // add support for messages that has the units in a different word(eg. 20 ls)
 // Add support for numbers with spaces in between the numbers
+// add support for k(thousand)
 
 function FindText() {
-    console.log("ft");
+    //console.log("ft");
     let elems = null;
     let nick = null;
     let words = null; let word = "";
@@ -92,7 +93,6 @@ function FindText() {
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
-                        console.log("distval4" + nmbr);
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
