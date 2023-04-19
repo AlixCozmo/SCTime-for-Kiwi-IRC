@@ -27,10 +27,12 @@ function FindText() {
     let words = null; let word = "";
     let altword = ""; // similar to word except it's only used for calculations
     let newMessageText = "";
+    let altwords = null;
+    let altmessagetext = null;
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    //elems=document.getElementsByClassName("gb_q"); //testing purposes
+    //elems=document.getElementsByClassName("gb_t"); //testing purposes
 
     elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
@@ -60,13 +62,16 @@ function FindText() {
             continue; // this should make it so that it continues searching for messages to inject
         }
         //console.log("msgtext: " + messagetext);
-        messagetext = messagetext.replace(",", "."); // replaces comma(',' with a dot '.')
         //console.log("msgtext: " + messagetext);
+        altmessagetext = messagetext; // altmessagetext is used instead of messagetext for calculation
+        altmessagetext = altmessagetext.replace(",", "."); // replaces comma(',' with a dot '.')
         words=messagetext.split(" ");
+        altwords=altmessagetext.split(" ");
         //console.log(words);
         for(let wordnumber=0; wordnumber < words.length; wordnumber++) {
+            altword=altwords[wordnumber];
             word=words[wordnumber];
-            altword=word.toLowerCase();
+            altword=altword.toLowerCase();
             //console.log(altword);
             altword = FixComma(altword);
             altword = RemoveChar(altword);
@@ -80,9 +85,7 @@ function FindText() {
                 if (distanceunitspaced == false) {
                     if ((IsNumberK(altword)) == true) { 
                         let nmbr = Number(distanceval);
-                        //console.log("distval4" + nmbr);
                         nmbr = nmbr * 1000;
-                        //console.log("distval5" + nmbr);
                         distanceval = '' + nmbr;
                     }
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
@@ -91,11 +94,7 @@ function FindText() {
                         let nmbr = Number(distanceval);
                         console.log("distval4" + nmbr);
                         nmbr = nmbr * 1000;
-                       // console.log(typeof nmbr);
-                        //console.log("distval5" + nmbr);
-                        //console.log("distval6" + distanceval);
                         distanceval = '' + nmbr;
-                        //console.log("distval7" + distanceval);
                     }
                 words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 }
