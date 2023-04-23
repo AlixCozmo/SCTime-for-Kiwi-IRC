@@ -1,4 +1,4 @@
-This extension injects sctime in messages, it is designed to work on the fuelrats hosted version of Kiwi IRC. It won't work on the regular Kiwi IRC without modifying the manifest file first.
+This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL.
 
 Please note that this extension currently uses ManifestV2 and not V3.
 
