@@ -89,11 +89,21 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
+                    if ((IsNumberM(altword)) == true) { 
+                        let nmbr = Number(distanceval);
+                        nmbr = nmbr * 1000000;
+                        distanceval = '' + nmbr;
+                    }
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000;
+                        distanceval = '' + nmbr;
+                    }
+                    if ((IsNumberM(altword)) == true) {
+                        let nmbr = Number(distanceval);
+                        nmbr = nmbr * 1000000;
                         distanceval = '' + nmbr;
                     }
                 words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
@@ -394,6 +404,15 @@ function IsNumberK(word) {
                return true;
     } else return false;
 }
+
+function IsNumberM(word) {
+    //console.log("loc false, word: " + word);
+    if(word.endsWith("m") || word.endsWith("M")) {
+        //console.log("return true");
+               return true;
+    } else return false;
+}
+
 
 
 // Calculates the time to travel the distance that the word represents
