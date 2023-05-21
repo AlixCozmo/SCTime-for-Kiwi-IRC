@@ -14,12 +14,16 @@ var distancevalindex = 0;
 // add support for more than 1 commas
 // add support for .10ly(example)
 // add support for detecting if number is only zeros, (it's supposed to ignore those)
+// remove commas from altword stuff if its after the distance unit(to prevent it from refusing to treat it as a valid dist unit)
+// fix bug where it lowercases the display dist unit
 
 
 // DONE
 // add support for messages that has the units in a different word(eg. 20 ls)
 // Add support for numbers with spaces in between the numbers
 // add support for k(thousand)
+// add support for M(mega)
+
 
 function FindText() {
     //console.log("ft");
@@ -159,6 +163,42 @@ function IsDistanceWord(word, wordnumber, words) {
         distanceunitspaced = false;
         return true;
     }
+    
+    // forgive me, basically.. this is a lazy way of fixing a thing where it apparently refuses to inject sctime properly when capital letters are used.. 
+
+    if(word.endsWith("KLS")) {
+        distanceunit = "kls";
+        distanceunitspaced = false;
+        return true;
+    }
+    if(word.endsWith("MLS")) {
+        distanceunit = "mls";
+        distanceunitspaced = false;
+        return true;
+    }
+    if(word.endsWith("KLY")) { // intentionally disabled
+        distanceunitspaced = false;
+        return false;
+    }
+    if(word.endsWith("MM")) {
+        distanceunit = "mm";
+        distanceunitspaced = false;
+        return true;
+    }
+    /* if(word.endsWith("KM")) {
+        distanceunit = "KM";
+        return true;
+    }*/
+    if(word.endsWith("LY")) {
+        distanceunit = "ly";
+        distanceunitspaced = false;
+        return true;
+    }
+     if(word.endsWith("LS")) {
+        distanceunit = "ls";
+        distanceunitspaced = false;
+        return true;
+    }
     //console.log("wordnumber:" + wordnumber);
     else {
         //console.log("words:" + words.length);
@@ -198,6 +238,42 @@ function IsDistanceWord(word, wordnumber, words) {
                 return true;
             }
             if(word2.startsWith("ls") && word2.endsWith("ls")) {
+                distanceunit = "ls";
+                distanceunitspaced = true;
+                return true;
+            }
+
+            // forgive me, basically.. this is a lazy way of fixing a thing where it apparently refuses to inject sctime properly when capital letters are used.. 
+
+            if(word2.startsWith("KLS") && word2.endsWith("KLS")) {
+                distanceunit = "kls";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.startsWith("MLS") && word2.endsWith("MLS")) {
+                distanceunit = "mls";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.startsWith("KLY") && word2.endsWith("KLY")) { // intentionally disabled
+                distanceunitspaced = true;
+                return false;
+            }
+            if(word2.startsWith("MM") && word2.endsWith("MM")) {
+                distanceunit = "mm";
+                distanceunitspaced = true;
+                return true;
+            }
+           /* if(word.endsWith("KM")) {
+                distanceunit = "km";
+                return true;
+            }*/
+            if(word2.startsWith("LY") && word2.endsWith("LY")) {
+                distanceunit = "ly";
+                distanceunitspaced = true;
+                return true;
+            }
+            if(word2.startsWith("LS") && word2.endsWith("LS")) {
                 distanceunit = "ls";
                 distanceunitspaced = true;
                 return true;
@@ -427,8 +503,8 @@ function TimeToTravel(distv, distu) {
     //console.log(Word2);
     distnumber = Number(distv);
     if (distu == "ly") {
-        if (distnumber > 1) {
-            //console.log("aborting! ly is over 1ly!");
+        if (distnumber > 2) {
+            //console.log("aborting! ly is over 2ly!");
             abort = true;
             return;
         }
