@@ -93,11 +93,11 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                    if ((IsNumberM(altword)) == true) { 
+                /*    if ((IsNumberM(altword)) == true) { 
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000000;
                         distanceval = '' + nmbr;
-                    }
+                    }*/
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
                     if ((IsNumberK(altword)) == true) {
@@ -105,11 +105,11 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                    if ((IsNumberM(altword)) == true) {
+               /*     if ((IsNumberM(altword)) == true) {
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000000;
                         distanceval = '' + nmbr;
-                    }
+                    }*/
                 words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
@@ -481,7 +481,7 @@ function IsNumberK(word) {
     } else return false;
 }
 
-function IsNumberM(word) {
+function IsNumberM(word) { // what??
     //console.log("loc false, word: " + word);
     if(word.endsWith("m") || word.endsWith("M")) {
         //console.log("return true");
