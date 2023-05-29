@@ -22,7 +22,6 @@ var distancevalindex = 0;
 // add support for messages that has the units in a different word(eg. 20 ls)
 // Add support for numbers with spaces in between the numbers
 // add support for k(thousand)
-// add support for M(mega)
 
 
 function FindText() {
@@ -93,7 +92,7 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                /*    if ((IsNumberM(altword)) == true) { 
+                /*    if ((IsNumberM(altword)) == true) {  // WHY?
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000000;
                         distanceval = '' + nmbr;
