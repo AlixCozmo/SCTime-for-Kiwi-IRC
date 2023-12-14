@@ -1,4 +1,4 @@
-Version 1.3.10
+Version 1.3.11
 
 This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL.
 
