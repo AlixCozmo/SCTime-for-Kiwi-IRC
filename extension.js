@@ -4,7 +4,7 @@ var abort = false; // if set to true, the program should abort any current attem
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version 1.3.11 ####");
+console.log("#### SCTime for Kiwi IRC Version 1.3.12 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 
@@ -28,10 +28,10 @@ function CheckForUpdate() {
     var req = new XMLHttpRequest();  
     req.open('GET', 'https://raw.githubusercontent.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
-    console.log(req);
-    let result = String(req.responseText.includes("Version 1.3.11")); // checks if the version in the readme matches the current version
+    //console.log(req);
+    let result = String(req.responseText.includes("Version 1.3.12")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
-    console.log(result)
+    //console.log(result)
     if (resulthttstatus != 200) {
         console.warn("HTTP status code not 200!")
         console.log("Update failed!")
@@ -71,9 +71,9 @@ function FindText() {
 
     ResetVariables();
     //messagetext = document.documentElement.innerText;
-    elems=document.getElementsByClassName("gb_A"); //testing purposes
+    //elems=document.getElementsByClassName("gb_A"); //testing purposes
 
-    //elems=document.getElementsByClassName("kiwi-messagelist-body");
+    elems=document.getElementsByClassName("kiwi-messagelist-body");
     nick=document.getElementsByClassName("kiwi-messagelist-nick");
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
