@@ -29,3 +29,9 @@ Example image:
 
 
 Most of the calculation stuff is ported to javascript from this: https://github.com/Delrynn/inline-sctime
+
+Things to do:
+
+* Remove -g checks and always show gravity well times
+
+* Remove seconds showing when sctime is over 1 hour
