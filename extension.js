@@ -84,7 +84,14 @@ function FindText() {
         }
 
         for (let nicknumber = 0; nicknumber < nick.length; nicknumber++) {
-            //console.log("indexing nicks..");
+            console.log("indexing nicks..");
+            console.log(nicktext);
+            console.log(nicknumber);
+            console.log(nick);
+            console.log(elementnumber)
+            console.log(elems)
+            console.log("******")
+            console.log(nick[elementnumber])
             nicktext = nick[elementnumber].innerText;
         }
 
@@ -127,24 +134,20 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                /*    if ((IsNumberM(altword)) == true) {  // WHY?
-                        let nmbr = Number(distanceval);
-                        nmbr = nmbr * 1000000;
-                        distanceval = '' + nmbr;
-                    }*/
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-               /*     if ((IsNumberM(altword)) == true) {
-                        let nmbr = Number(distanceval);
-                        nmbr = nmbr * 1000000;
-                        distanceval = '' + nmbr;
-                    }*/
-                words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
@@ -320,14 +323,16 @@ function IsDistanceWord(word, wordnumber, words) {
         }
         }
 
-function IsGMessage() { // Checks if message contains -g flag or not
+function IsGMessage() { // Checks if message contains -g flag or not (NOT USED)
     if (messagetext.includes("-g")) {
         //console.log("-g detected!");
-        destinationGravity = true;
+        //destinationGravity = true; 
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     } else {
         //console.log("did not include -g");
-        destinationGravity = false;
+        //destinationGravity = false;
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     }
 }
