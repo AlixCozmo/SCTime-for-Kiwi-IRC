@@ -72,9 +72,19 @@ function FindText() {
     ResetVariables();
     //messagetext = document.documentElement.innerText;
     //elems=document.getElementsByClassName("gb_A"); //testing purposes
-
-    elems=document.getElementsByClassName("kiwi-messagelist-body");
-    nick=document.getElementsByClassName("kiwi-messagelist-nick");
+    messageholder=document.getElementsByClassName("kiwi-messagelist-modern-right");
+    //elems=document.getElementsByClassName("kiwi-messagelist-body");
+    elems=document.querySelectorAll('.kiwi-messagelist-modern-right.children[1]');
+    console.log(elems)
+    console.log(messageholder)
+    for (let resetloopvar = 0; resetloopvar < elems.length; resetloopvar++) {
+        if (elems[resetloopvar].children.contains('kiwi-messagelist-top')) {
+            console.log(resetloopvar)
+            elems = elems.splice(resetloopvar, 1)
+        }
+    }
+    //nick=document.getElementsByClassName("kiwi-messagelist-nick");
+    nick=document.querySelectorAll('.kiwi-messagelist-modern-right > .kiwi-messagelist-top > .kiwi-messagelist-nick');
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
         messagetext = elems[elementnumber].innerHTML;
@@ -82,6 +92,7 @@ function FindText() {
             //console.log("Abort! Message already has sctime injected, elementnumber: " + elementnumber);
             continue;
         }
+        
 
         for (let nicknumber = 0; nicknumber < nick.length; nicknumber++) {
             console.log("indexing nicks..");
