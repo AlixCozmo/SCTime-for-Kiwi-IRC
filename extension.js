@@ -4,7 +4,7 @@ var abort = false; // if set to true, the program should abort any current attem
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version PRE1.3.13-0 ####");
+console.log("#### SCTime for Kiwi IRC Version 1.3.12 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 
@@ -29,7 +29,7 @@ function CheckForUpdate() {
     req.open('GET', 'https://raw.githubusercontent.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes("Version 1.3.13-0")); // checks if the version in the readme matches the current version
+    let result = String(req.responseText.includes("Version 1.3.12")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus != 200) {
@@ -84,7 +84,14 @@ function FindText() {
         }
 
         for (let nicknumber = 0; nicknumber < nick.length; nicknumber++) {
-            //console.log("indexing nicks..");
+            console.log("indexing nicks..");
+            console.log(nicktext);
+            console.log(nicknumber);
+            console.log(nick);
+            console.log(elementnumber)
+            console.log(elems)
+            console.log("******")
+            console.log(nick[elementnumber])
             nicktext = nick[elementnumber].innerText;
         }
 
@@ -120,74 +127,28 @@ function FindText() {
             }
             if(IsValidWord(altword, wordnumber, words)) {
                // console.log("distval" + distanceval);
-                // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"
-                var tempstr
-                for (let i = 0; i < 2; i++) {  
-                    if (distanceunitspaced == false) {
-                        if ((IsNumberK(altword)) == true) { 
-                            destinationGravity = !destinationGravity // toggles destinationGravity
-                            let nmbr = Number(distanceval);
-                            nmbr = nmbr * 1000;
-                            distanceval = '' + nmbr;
-                        }
-                        for (let i = 0; i < 2; i++) {  
-                            if ((IsNumberK(altword)) == true) {
-                                destinationGravity = !destinationGravity // toggles destinationGravity
-                                let nmbr = Number(distanceval);
-                                nmbr = nmbr * 1000;
-                                distanceval = '' + nmbr;
-                            }
-                            if (destinationGravity == True) {
-                                if (i == 0) { // if its the first injection
-                                 tempstr = (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                                }
-                                else {
-                                    tempstr += (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                                }
-    
-                            }
-                            if (destinationGravity == False) {
-                                if (i == 0) { // if its the first injection
-                                 tempstr = (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                                }
-                                else {
-                                    tempstr += (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                                }
-    
-                            }
-                        }
-                        words[wordnumber] = tempstr
+                // replace distance word with the same word and append time to travel; "1448ls" => "1448ls (26m7s)"    
+                if (distanceunitspaced == false) {
+                    if ((IsNumberK(altword)) == true) { 
+                        let nmbr = Number(distanceval);
+                        nmbr = nmbr * 1000;
+                        distanceval = '' + nmbr;
                     }
-                }
+                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
-                    for (let i = 0; i < 2; i++) {  
-                        if ((IsNumberK(altword)) == true) {
-                            destinationGravity = !destinationGravity // toggles destinationGravity
-                            let nmbr = Number(distanceval);
-                            nmbr = nmbr * 1000;
-                            distanceval = '' + nmbr;
-                        }
-                        if (destinationGravity == True) {
-                            if (i == 0) { // if its the first injection
-                             tempstr = (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                            }
-                            else {
-                                tempstr += (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                            }
-
-                        }
-                        if (destinationGravity == False) {
-                            if (i == 0) { // if its the first injection
-                             tempstr = (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                            }
-                            else {
-                                tempstr += (distanceunit + " {" + TimeToTravel(distanceval, distanceunit) + "}");
-                            }
-
-                        }
+                    if ((IsNumberK(altword)) == true) {
+                        let nmbr = Number(distanceval);
+                        nmbr = nmbr * 1000;
+                        distanceval = '' + nmbr;
                     }
-                    words[wordnumber+1] = tempstr
-            
+                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
+                }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
                 if (abort == true) {
@@ -362,14 +323,16 @@ function IsDistanceWord(word, wordnumber, words) {
         }
         }
 
-function IsGMessage() { // Checks if message contains -g flag or not
+function IsGMessage() { // Checks if message contains -g flag or not (NOT USED)
     if (messagetext.includes("-g")) {
         //console.log("-g detected!");
-        destinationGravity = true;
+        //destinationGravity = true; 
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     } else {
         //console.log("did not include -g");
-        destinationGravity = false;
+        //destinationGravity = false;
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     }
 }
@@ -607,7 +570,7 @@ function CalculateSCTime(distance, distanceunit) {
     distancefixed = ConvertToLS(distance, distanceunit);
     //console.log(distancefixed);
     //console.log("dist" + distancefixed);
-    totalseconds = CalcToSeconds(distancefixed);
+    totalseconds = CalcTotSeconds(distancefixed);
     //console.log("tots" + totalseconds);
     SCTime = CrTimeString(totalseconds);
     //console.log("sctime: " + SCTime);
@@ -661,7 +624,7 @@ function CalculateSCTime(distance, distanceunit) {
     }
 }
 
-function CalcToSeconds(lightSeconds) {
+function CalcTotSeconds(lightSeconds) {
     let seconds = 0;
     //console.log("cls" + lightSeconds);
     if (destinationGravity == true) {
