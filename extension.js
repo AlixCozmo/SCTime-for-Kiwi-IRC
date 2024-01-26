@@ -4,7 +4,7 @@ var abort = false; // if set to true, the program should abort any current attem
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version 1.3.12 ####");
+console.log("#### SCTime for Kiwi IRC Version 1.4 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 
@@ -29,7 +29,7 @@ function CheckForUpdate() {
     req.open('GET', 'https://raw.githubusercontent.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes("Version 1.3.12")); // checks if the version in the readme matches the current version
+    let result = String(req.responseText.includes("Version 1.4")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus != 200) {
@@ -61,7 +61,7 @@ function CheckForUpdate() {
 
 function FindText() {
     //console.log("ft");
-    let elems = null;
+    let elems = [];
     let nick = null;
     let words = null; let word = "";
     let altword = ""; // similar to word except it's only used for calculations
@@ -72,9 +72,14 @@ function FindText() {
     ResetVariables();
     //messagetext = document.documentElement.innerText;
     //elems=document.getElementsByClassName("gb_A"); //testing purposes
-
-    elems=document.getElementsByClassName("kiwi-messagelist-body");
-    nick=document.getElementsByClassName("kiwi-messagelist-nick");
+    nick=document.querySelectorAll('.kiwi-messagelist-modern-right > .kiwi-messagelist-top > .kiwi-messagelist-nick');
+    //console.log(typeof nick)
+    for (let loopvar = 0; loopvar < nick.length; loopvar++) {
+        elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
+        // gets through
+    }
+    console.log(elems)
+    //nick=document.getElementsByClassName("kiwi-messagelist-nick");
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
         messagetext = elems[elementnumber].innerHTML;
@@ -82,9 +87,17 @@ function FindText() {
             //console.log("Abort! Message already has sctime injected, elementnumber: " + elementnumber);
             continue;
         }
+        
 
         for (let nicknumber = 0; nicknumber < nick.length; nicknumber++) {
             //console.log("indexing nicks..");
+            //console.log(nicktext);
+            //console.log(nicknumber);
+            //console.log(nick);
+            //console.log(elementnumber)
+            //console.log(elems)
+            //console.log("******")
+            //console.log(nick[elementnumber])
             nicktext = nick[elementnumber].innerText;
         }
 
@@ -127,24 +140,20 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                /*    if ((IsNumberM(altword)) == true) {  // WHY?
-                        let nmbr = Number(distanceval);
-                        nmbr = nmbr * 1000000;
-                        distanceval = '' + nmbr;
-                    }*/
                 words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-               /*     if ((IsNumberM(altword)) == true) {
-                        let nmbr = Number(distanceval);
-                        nmbr = nmbr * 1000000;
-                        distanceval = '' + nmbr;
-                    }*/
-                words[wordnumber+1] = (distanceunit + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += "|[If Grvty well]:"
+                destinationGravity = true
+                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
@@ -320,14 +329,16 @@ function IsDistanceWord(word, wordnumber, words) {
         }
         }
 
-function IsGMessage() { // Checks if message contains -g flag or not
+function IsGMessage() { // Checks if message contains -g flag or not (NOT USED)
     if (messagetext.includes("-g")) {
         //console.log("-g detected!");
-        destinationGravity = true;
+        //destinationGravity = true; 
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     } else {
         //console.log("did not include -g");
-        destinationGravity = false;
+        //destinationGravity = false;
+        // ^^ the above is now commented out due to a change in how mechasqueak handles gravity well in the sctime command
         return true;
     }
 }
