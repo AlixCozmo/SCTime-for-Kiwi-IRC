@@ -4,6 +4,9 @@ This extension injects sctime in messages, It won't work on the regular Kiwi IRC
 
 Please note that this extension currently uses ManifestV2 and not V3.
 
+Example image:
+![github](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/7a614e37-ceb1-4f6a-bddb-37ba0c03d86f)
+
 How to install:
 
 Chrome:
@@ -22,12 +25,6 @@ Method 2:
 You can also install the extension with the .xpi file, though this may not work on regular firefox installations as it is not signed. It should however work on firefox developer edition.
 
 Go into about:addons in firefox, click on the cogwheel and select install addon from file, then choose the .xpi file.
-
-
-Example image:
-![github](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/7a614e37-ceb1-4f6a-bddb-37ba0c03d86f)
-
-
 
 Most of the calculation stuff is ported to javascript from this: https://github.com/Delrynn/inline-sctime
 
