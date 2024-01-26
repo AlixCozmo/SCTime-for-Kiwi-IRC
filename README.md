@@ -25,7 +25,8 @@ Go into about:addons in firefox, click on the cogwheel and select install addon 
 
 
 Example image:
-![example3](https://user-images.githubusercontent.com/66059104/210634984-cfb3b8f5-482a-4119-8955-32c4fff5499b.PNG)
+![github](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/7a614e37-ceb1-4f6a-bddb-37ba0c03d86f)
+
 
 
 Most of the calculation stuff is ported to javascript from this: https://github.com/Delrynn/inline-sctime
