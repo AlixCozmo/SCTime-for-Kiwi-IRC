@@ -72,10 +72,22 @@ function FindText() {
     ResetVariables();
     //messagetext = document.documentElement.innerText;
     //elems=document.getElementsByClassName("gb_A"); //testing purposes
-    nick=document.querySelectorAll('.kiwi-messagelist-modern-right > .kiwi-messagelist-top > .kiwi-messagelist-nick');
+    nick=document.querySelectorAll('.kiwi-messagelist-nick');
     //console.log(typeof nick)
+    //console.log(nick)
+    //console.log(nick[0].nextSibling.nodeName)
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
-        elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
+        if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
+            console.log("modern layout")
+            elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
+        } 
+        if (nick[0].nextSibling.nodeName == "#text") { // if old traditional layout is used
+            console.log("old traditional layout")
+            elems.push(nick[loopvar].parentNode.lastElementChild) // this gets the body from the nick, this ensures that no message without a nick
+        } else {
+            console.log("default")
+            elems.push(nick[loopvar].nextSibling) // this gets the body from the nick, this ensures that no message without a nick
+        }
         // gets through
     }
     //console.log(elems)
