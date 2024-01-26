@@ -5,7 +5,8 @@ This extension injects sctime in messages, It won't work on the regular Kiwi IRC
 Please note that this extension currently uses ManifestV2 and not V3.
 
 Example image:
-![github](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/7a614e37-ceb1-4f6a-bddb-37ba0c03d86f)
+![image](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/fe3f2c02-8c2c-4069-a370-59fba5d222a6)
+
 
 How to install:
 
