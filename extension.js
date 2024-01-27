@@ -156,6 +156,7 @@ function FindText() {
                 words[wordnumber] += "|[If Grvty well]:"
                 destinationGravity = true
                 words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
+                destinationGravity = false
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
@@ -166,6 +167,7 @@ function FindText() {
                 words[wordnumber] += "|[If Grvty well]:"
                 destinationGravity = true
                 words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
+                destinationGravity = false
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
@@ -579,6 +581,7 @@ function ResetVariables() {
     destinationGravity = false;
     distanceunit = "";
     distancevalindex = 0;
+    
 }
 
 function CalculateSCTime(distance, distanceunit) {
