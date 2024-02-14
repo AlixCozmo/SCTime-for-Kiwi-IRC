@@ -36,3 +36,5 @@ Most of the calculation stuff is ported to javascript from this: https://github.
 Things to do:
 
 * Remove seconds showing when sctime is over 1 hour
+
+* Fix sctime not being calculated when a period(.) is after the distance unit
