@@ -40,3 +40,5 @@ Things to do:
 * Fix sctime not being calculated when a period(.) is after the distance unit
 
 * Abort sctime injection when commands are used. example: !command 3 something something
+
+* Fix critical bug which prevents the extension from injecting sctime into messages. this is caused by a lack of a continue; when determining the layout type
