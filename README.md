@@ -1,4 +1,4 @@
-Version 1.4.2
+Version 1.4.3
 
 For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelrats](https://fuelrats.com/) are, you most likely don't need this.
 
@@ -40,5 +40,3 @@ Things to do:
 * Fix sctime not being calculated when a period(.) is after the distance unit
 
 * Abort sctime injection when commands are used. example: !command 3 something something
-
-* Fix critical bug which prevents the extension from injecting sctime into messages. this is caused by a lack of a continue; when determining the layout type
