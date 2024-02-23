@@ -4,7 +4,7 @@ var abort = false; // if set to true, the program should abort any current attem
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version 1.4.2 ####");
+console.log("#### SCTime for Kiwi IRC Version 1.4.3 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 
@@ -26,15 +26,16 @@ var distancevalindex = 0;
 function CheckForUpdate() {
     console.log("Checking for updates.. ")
     var req = new XMLHttpRequest();  
-    req.open('GET', 'https://raw.githubusercontent.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/main/README.md', false);   
+    req.open('GET', 'https://raw.githubusercontent.com/AlixCozmo/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes("Version 1.4.2")); // checks if the version in the readme matches the current version
+    let result = String(req.responseText.includes("Version 1.4.3")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus != 200) {
         console.warn("HTTP status code not 200!")
         console.log("Update failed!")
+        alert("Failed to check for update! Did not receive a 200 HTTP response! \nPlease create an issue on github if this persists")
         return 0
     }
     if (result == "false") {
@@ -50,11 +51,13 @@ function CheckForUpdate() {
     if (result) {
         console.warn("Unable to read version number from github.")
         console.log("Update failed!")
+        alert("Failed to check for update due to being unable to read version number! \nPlease create an issue on github if this persists")
         return 0
     }
     else {
         console.error("An unknown error has occurred while performing update check.")
         console.log("Update failed!")
+        alert("Failed to check for update due to an unknown error! \nPlease create an issue on github if this persists")
         return 0
     }
 }
@@ -78,14 +81,16 @@ function FindText() {
     //console.log(nick[0].nextSibling.nodeName)
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
         if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
-            console.log("modern layout")
+            //console.log("modern layout")
             elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
-        } 
+            continue;
+        }
         if (nick[0].nextSibling.nodeName == "#text") { // if old traditional layout is used
-            console.log("old traditional layout")
+            //console.log("old traditional layout")
             elems.push(nick[loopvar].parentNode.lastElementChild) // this gets the body from the nick, this ensures that no message without a nick
+            continue;
         } else {
-            console.log("default")
+            //console.log("default")
             elems.push(nick[loopvar].nextSibling) // this gets the body from the nick, this ensures that no message without a nick
         }
         // gets through
