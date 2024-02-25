@@ -4,7 +4,7 @@ For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelra
 
 
 
-This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL.
+This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL. After doing that however it does work :)
 
 Please note that this extension currently uses ManifestV2 and not V3.
 
