@@ -38,6 +38,12 @@ function CheckForUpdate() {
         alert("Failed to check for update! Did not receive a 200 HTTP response! \nPlease create an issue on github if this persists")
         return 0
     }
+    if (resulthttstatus == 418) {
+        console.error("HTTP status equal to 418")
+        console.log("HTTP STATUS 418. I am a teapot.")
+        alert("HTTP STATUS 418. I am a teapot.")
+        return 0
+    }
     if (result == "false") {
         console.log("New update available!")
         alert("An update is available for SCTime for Kiwi IRC!\n Visit the Github page to download & install.")
