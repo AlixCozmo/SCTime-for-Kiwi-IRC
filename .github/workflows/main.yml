@@ -19,6 +19,7 @@ jobs:
         mv manifestfirefox.json manifest.json
         zip sctime.xpi extension.js manifest.json
     - name: Upload Files to release
+      GH_TOKEN: ${{ github.token }}
       run: |
         gh release upload ${{github.event.release.tag_name}} sctime.zip, sctime.xpi
             
