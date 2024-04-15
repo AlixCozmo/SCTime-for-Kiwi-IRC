@@ -38,13 +38,15 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.YOUR_PERSONAL_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.increment_version.outputs.NEW_VERSION }}
         release_name: ${{ steps.increment_version.outputs.NEW_VERSION }}
         body: Automatic Release
         draft: false
         prerelease: true
+        
+
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
