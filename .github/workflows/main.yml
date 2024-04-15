@@ -44,3 +44,6 @@ jobs:
         body: Automatic release by Github Actions Workflow
         draft: false
         prerelease: true
+        files: |
+          sctime.zip
+          sctime.xpi
