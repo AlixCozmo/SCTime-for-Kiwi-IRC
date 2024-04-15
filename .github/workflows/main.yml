@@ -33,6 +33,7 @@ jobs:
         mv manifestfirefox.json manifest.json
         zip sctime.xpi extension.js manifest.json
 
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -45,12 +46,22 @@ jobs:
         draft: false
         prerelease: true
 
-    - name: Upload Files
-      uses: actions/upload-artifact@v2
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: release-assets
-        path: |
-            sctime.zip
-            sctime.xpi
-            
-            
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./sctime.zip
+        asset_name: sctime.zip
+        asset_content_type: application/zip
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./sctime.xpi
+        asset_name: sctime.xpi
+        asset_content_type: application/x-xpinstall
