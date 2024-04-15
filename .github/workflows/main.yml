@@ -13,13 +13,10 @@ jobs:
     - name: Install zip
       run: sudo apt-get install zip
 
-    - name: Create release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.ref_name }}
-        run: |
-          gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
-              --generate-notes
+    - name: Create GitHub Release
+      uses: pipe-cd/actions-gh-release@v2.6.0
+      with:
+          release_file: 'sctime.zip', 'sctime.xpi'
+          token: ${{ secrets.GITHUB_TOKEN }}
+            
             
