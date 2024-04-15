@@ -8,6 +8,11 @@ on:
         description: 'Version number'     
         required: true
         default: '1.0.0'
+      Description:
+        type: string
+        description: 'Description'     
+        required: true
+        default: 'New Release'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +38,7 @@ jobs:
       with:
         tag_name: sctimekiwiirc${{ github.event.inputs.version }}
         release_name: ${{ github.event.inputs.version }}
-        body: Automatic Release
+        body: ${{ github.event.inputs.description }}
         draft: false
         prerelease: true
         
