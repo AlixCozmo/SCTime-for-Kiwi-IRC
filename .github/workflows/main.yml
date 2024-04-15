@@ -2,7 +2,11 @@ name: Zip Files
 
 on: 
   workflow_dispatch:
-
+  inputs:
+      version:
+        description: 'Version number'     
+        required: true
+        default: '1.0.0'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,22 +16,6 @@ jobs:
 
     - name: Install zip
       run: sudo apt-get install zip
-
-    - name: Get latest release tag
-      id: get_latest_tag
-      run: |
-        echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
-
-    - name: Increment version
-      id: increment_version
-      run: |
-        # Extract the numeric part of the tag
-        VERSION=$(echo "${{ steps.get_latest_tag.outputs.TAG }}" | grep -oP '(?<=sctimekiwiirc)\d+\.\d+\.\d+')
-        # Increment the patch version by 1
-        PATCH_VERSION=$(echo $VERSION | awk -F. '{print $3}')
-        PATCH_VERSION=$((PATCH_VERSION + 1))
-        NEW_VERSION=$(echo $VERSION | awk -v OFS=. -F. '{$3=""; print $0}' | sed 's/ *$//')$PATCH_VERSION
-        echo "::set-output name=NEW_VERSION::sctimekiwiirc${NEW_VERSION}"
         
     - name: Zip files
       run: |
@@ -42,8 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.increment_version.outputs.NEW_VERSION }}
-        release_name: ${{ steps.increment_version.outputs.NEW_VERSION }}
+        tag_name: sctimekiwiirc${{ github.event.inputs.version }}
+        release_name: ${{ github.event.inputs.version }}
         body: Automatic Release
         draft: false
         prerelease: true
