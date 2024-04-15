@@ -4,7 +4,7 @@ var abort = false; // if set to true, the program should abort any current attem
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version 1.4.3 ####");
+console.log("#### SCTime for Kiwi IRC Version 1.4.4 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 //InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
@@ -30,7 +30,7 @@ function CheckForUpdate() {
     req.open('GET', 'https://raw.githubusercontent.com/AlixCozmo/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes("Version 1.4.3")); // checks if the version in the readme matches the current version
+    let result = String(req.responseText.includes("Version 1.4.4")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus == 418) {
@@ -122,6 +122,7 @@ function FindText() {
     //console.log(typeof nick)
     //console.log(nick)
     //console.log(nick[0].nextSibling.nodeName)
+    //ScriptEvent
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
         if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
             //console.log("modern layout")
