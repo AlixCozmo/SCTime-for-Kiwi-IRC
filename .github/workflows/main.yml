@@ -14,4 +14,7 @@ jobs:
       run: sudo apt-get install zip
 
     - name: Zip files
-      run: zip archive.zip file1.txt file2.txt
+      run: |
+        zip sctime.zip extension.js manifest.json
+        mv manifestfirefox.json manifest.json
+        zip sctime.xpi extension.js manifest.json
