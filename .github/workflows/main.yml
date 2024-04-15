@@ -1,0 +1,17 @@
+name: Zip Files
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install zip
+      run: sudo apt-get install zip
+
+    - name: Zip files
+      run: zip archive.zip file1.txt file2.txt
