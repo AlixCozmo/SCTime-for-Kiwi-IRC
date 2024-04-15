@@ -13,20 +13,6 @@ jobs:
     - name: Install zip
       run: sudo apt-get install zip
 
-    - name: Get latest release tag
-      id: get_latest_tag
-      run: |
-        echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
-
-    - name: Increment version
-      id: increment_version
-      run: |
-        # Extract the numeric part of the tag
-        VERSION=$(echo "${{ steps.get_latest_tag.outputs.TAG }}" | sed 's/v//')
-        # Increment the version by 1
-        VERSION=$((VERSION + 1))
-        echo "::set-output name=NEW_VERSION::v${VERSION}"
-
     - name: Zip files
       run: |
         zip sctime.zip extension.js manifest.json
