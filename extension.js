@@ -7,7 +7,7 @@ var distanceval = "";
 console.log("#### SCTime for Kiwi IRC Version 1.4.3 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
-InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
+//InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
 
 
 // TODO
@@ -122,7 +122,6 @@ function FindText() {
     //console.log(typeof nick)
     //console.log(nick)
     //console.log(nick[0].nextSibling.nodeName)
-    ScriptEvent
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
         if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
             //console.log("modern layout")
