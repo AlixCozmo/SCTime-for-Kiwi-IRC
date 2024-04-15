@@ -18,14 +18,7 @@ jobs:
         zip sctime.zip extension.js manifest.json
         mv manifestfirefox.json manifest.json
         zip sctime.xpi extension.js manifest.json
-        
-    - name: Upload To Github Release
-      uses: xresloader/upload-to-github-release@v1.5.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        file: "*sctime.zip, sctime.xpi"
-        tags: true
-        draft: true
-        prerelease: true
+    - name: Upload Files to release
+      run: |
+        gh release upload ${{github.event.release.tag_name}} sctime.zip, sctime.xpi
             
