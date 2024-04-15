@@ -17,6 +17,10 @@ How to install:
 Chrome:
 To install, simply download the latest release, unzip the file and then in chrome://extensions enable programmer mode, click import uncompressed extension and then select the unzipped folder.
 
+Opera:
+
+Download the latest release, unzip it and in opera://extensions click on "Load unpacked" and select the unzipped folder.
+
 Firefox:
 
 Method 1:
