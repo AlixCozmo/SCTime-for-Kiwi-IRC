@@ -33,17 +33,13 @@ jobs:
         mv manifestfirefox.json manifest.json
         zip sctime.xpi extension.js manifest.json
         
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Upload To Github Release
+      uses: xresloader/upload-to-github-release@v1.5.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.increment_version.outputs.NEW_VERSION }}
-        release_name: Release ${{ steps.increment_version.outputs.NEW_VERSION }}
-        body: Automatic release by Github Actions Workflow
-        draft: false
+        file: "*sctime.zip, sctime.xpi"
+        tags: true
+        draft: true
         prerelease: true
-        files: |
-          sctime.zip
-          sctime.xpi
+            
