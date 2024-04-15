@@ -16,7 +16,8 @@ jobs:
     - name: Create GitHub Release
       uses: pipe-cd/actions-gh-release@v2.6.0
       with:
-          release_file: 'sctime.zip', 'sctime.xpi'
+          release_file: 'sctime.zip'
+          release_file: 'sctime.xpi'
           token: ${{ secrets.GITHUB_TOKEN }}
             
             
