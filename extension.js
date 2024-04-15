@@ -7,6 +7,7 @@ var distanceval = "";
 console.log("#### SCTime for Kiwi IRC Version 1.4.3 ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
+InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
 
 
 // TODO
@@ -32,18 +33,19 @@ function CheckForUpdate() {
     let result = String(req.responseText.includes("Version 1.4.3")); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
-    if (resulthttstatus != 200) {
-        console.warn("HTTP status code not 200!")
-        console.log("Update failed!")
-        alert("Failed to check for update! Did not receive a 200 HTTP response! \nPlease create an issue on github if this persists")
-        return 0
-    }
     if (resulthttstatus == 418) {
         console.error("HTTP status equal to 418")
         console.log("HTTP STATUS 418. I am a teapot.")
         alert("HTTP STATUS 418. I am a teapot.")
         return 0
     }
+    if (resulthttstatus != 200) {
+        console.warn("HTTP status code not 200!")
+        console.log("Update failed!")
+        alert("Failed to check for update! Did not receive a 200 HTTP response! \nPlease create an issue on github if this persists")
+        return 0
+    }
+
     if (result == "false") {
         console.log("New update available!")
         alert("An update is available for SCTime for Kiwi IRC!\n Visit the Github page to download & install.")
@@ -68,6 +70,41 @@ function CheckForUpdate() {
     }
 }
 
+function InjectScript(path) {
+    // this function injects a script onto the page and returns the data that the script returns
+    //let datareturn;
+    //let fDataReturn = function(e) {
+    //    datareturn = ScriptEvent(e.detail)
+    //};
+    let script = document.createElement('script');
+    let string = 'setInterval(function() { var data = TEXTHERE; document.dispatchEvent(new CustomEvent("InjectEvent", {detail: data})) }, 1000);';
+    string = string.replace('TEXTHERE', path); // replaces TEXTHERE with the path
+    script.textContent = string;
+    (document.head || document.documentElement).appendChild(script);
+    /*
+    document.addEventListener('data'), fDataReturn;
+    (document.head || document.documentElement).appendChild(script);
+    script.parentNode.removeChild(script);
+    document.removeEventListener('data', fDataReturn);
+    return datareturn;
+    */
+}
+
+function ScriptEvent() {
+    let datareturn;
+    let fDataEventLength = function(e) {
+        datareturn = LengthScriptEvent(e.detail)
+    };
+    document.addEventListener('data', fDataEventLength);
+    document.removeEventListener('data', fDataEventLength);
+    console.log(datareturn)
+    return datareturn;
+}
+
+function ScriptEventChild(datareturn) {
+    return datareturn;
+}
+
 function FindText() {
     //console.log("ft");
     let elems = [];
@@ -85,6 +122,7 @@ function FindText() {
     //console.log(typeof nick)
     //console.log(nick)
     //console.log(nick[0].nextSibling.nodeName)
+    ScriptEvent
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
         if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
             //console.log("modern layout")
@@ -106,6 +144,9 @@ function FindText() {
     for (let elementnumber = 0; elementnumber < elems.length; elementnumber++) {
         //console.log("elementnumber:" + elementnumber);
         messagetext = elems[elementnumber].innerHTML;
+        if (messagetext == null) {
+            break;
+        }
         if (messagetext.includes("((", "))")) { // If the message contains "((" and "))"
             //console.log("Abort! Message already has sctime injected, elementnumber: " + elementnumber);
             continue;
