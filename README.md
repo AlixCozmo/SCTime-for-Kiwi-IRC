@@ -51,3 +51,7 @@ Things to do:
 * Fix sctime not being calculated when a period(.) is after the distance unit
 
 * Abort sctime injection when commands are used. example: !command 3 something something
+
+Known issues:
+
+* Doesn't work if the advanced show real name option is enabled
