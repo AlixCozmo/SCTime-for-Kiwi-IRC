@@ -9,21 +9,6 @@ var distanceunitspaced = false; // if true, the extension will inject sctime aft
 var distancevalindex = 0;
 //InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
 
-
-// TODO
-
-// add support for more than 1 commas
-// add support for .10ly(example)
-// add support for detecting if number is only zeros, (it's supposed to ignore those)
-// remove commas from altword stuff if its after the distance unit(to prevent it from refusing to treat it as a valid dist unit)
-// fix bug where it lowercases the display dist unit
-
-
-// DONE
-// add support for messages that has the units in a different word(eg. 20 ls)
-// Add support for numbers with spaces in between the numbers
-// add support for k(thousand)
-
 function CheckForUpdate() {
     console.log("Checking for updates.. ")
     var req = new XMLHttpRequest();  
@@ -125,6 +110,11 @@ function FindText() {
     //ScriptEvent
     for (let loopvar = 0; loopvar < nick.length; loopvar++) {
         if (nick[0].nextSibling.nodeName == "#comment") { // if modern layout is used
+            //console.log("modern layout")
+            elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
+            continue;
+        }
+        if (nick[0].nextSibling.nextSibling.nodeName == "#comment") { // if modern layout is used + realname
             //console.log("modern layout")
             elems.push(nick[loopvar].parentNode.parentNode.children[1]) // this gets the body from the nick, this ensures that no message without a nick
             continue;
