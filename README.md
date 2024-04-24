@@ -1,4 +1,4 @@
-Version 1.4.3
+Version 1.4.5
 
 Latest stable release
 
@@ -8,7 +8,11 @@ For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelra
 
 This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL. After doing that however it does work :)
 
-Please note that this extension currently uses ManifestV2 and not V3.
+Please note that this extension currently uses ManifestV2 and not V3. 
+
+Another note: The Firefox version is NOT tested if it works or not, although it _should_.
+
+If any issues arises feel free to open an issue :)
 
 Example image:
 ![image](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/fe3f2c02-8c2c-4069-a370-59fba5d222a6)
