@@ -26,7 +26,7 @@ To install, simply download the latest release, unzip the file and then in chrom
 
 Opera:
 
-Download the latest release, unzip it and in opera://extensions click on "Load unpacked" and select the unzipped folder.
+Download the latest release, unzip it and in opera://extensions enable Developer Mode in the top right corner and then click on "Load unpacked" and select the unzipped folder.
 
 Brave:
 
