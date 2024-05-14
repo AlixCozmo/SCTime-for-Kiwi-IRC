@@ -1,10 +1,11 @@
 var messagetext = "";
 var nicktext = "";
+var Version = "1.4.6";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version 1.4.5 ####");
+console.log("#### SCTime for Kiwi IRC Version " + toString(Version) + " ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 //InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
@@ -15,7 +16,7 @@ function CheckForUpdate() {
     req.open('GET', 'https://raw.githubusercontent.com/AlixCozmo/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes("Version 1.4.5")); // checks if the version in the readme matches the current version
+    let result = String(req.responseText.includes(toString(Version))); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus == 418) {
@@ -24,10 +25,15 @@ function CheckForUpdate() {
         alert("HTTP STATUS 418. I am a teapot.")
         return 0
     }
+    if (resulthttstatus == 404) {
+        console.error("HTTP STATUS 404")
+        alert("Failed to check for update! Received a 404 HTTP response! \nPlease create an issue on github if this persists")
+        return 0
+    }
     if (resulthttstatus != 200) {
-        console.warn("HTTP status code not 200!")
+        console.warn("HTTP status code equal to " + toString(resulthttstatus))
         console.log("Update failed!")
-        alert("Failed to check for update! Did not receive a 200 HTTP response! \nPlease create an issue on github if this persists")
+        alert("Failed to check for update! Did not receive a " + toString(resulthttstatus) + " HTTP response! \nPlease create an issue on github if this persists")
         return 0
     }
 
