@@ -1,11 +1,11 @@
 var messagetext = "";
 var nicktext = "";
-var Version = "1.4.6";
+var Version = "1.4.7";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
 var distanceunit = "";
 var distanceval = "";
-console.log("#### SCTime for Kiwi IRC Version " + toString(Version) + " ####");
+console.log("#### SCTime for Kiwi IRC Version " + Version + " ####");
 var distanceunitspaced = false; // if true, the extension will inject sctime after the distance unit if it's not the same word as the number
 var distancevalindex = 0;
 //InjectScript('kiwi.state.getSetting(window.kiwi.state.getSetting("settings.buffers.messageLayout")')
