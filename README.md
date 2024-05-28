@@ -1,6 +1,6 @@
-Version 1.4.6
+Version 1.4.7
 
-Latest stable release: 1.4.5
+Latest stable release: 1.4.7
 
 For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelrats](https://fuelrats.com/) are, you most likely don't need this.
 
