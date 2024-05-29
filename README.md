@@ -1,6 +1,6 @@
-Version 1.4.8
+Version 1.4.9
 
-Latest stable release: 1.4.8
+Latest stable release: 1.4.9
 
 For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelrats](https://fuelrats.com/) are, you most likely don't need this.
 
@@ -57,5 +57,3 @@ Things to do:
 * Abort sctime injection when commands are used. example: !command 3 something something(maybe idk)
 
 * Clean up the code
-
-* Clean up the injected text, it's a bit messy
