@@ -1,6 +1,6 @@
 var messagetext = "";
 var nicktext = "";
-var Version = "1.4.7";
+var Version = "1.4.8";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
 var distanceunit = "";
@@ -16,7 +16,8 @@ function CheckForUpdate() {
     req.open('GET', 'https://raw.githubusercontent.com/AlixCozmo/SCTime-for-Kiwi-IRC/main/README.md', false);   
     req.send(null);
     //console.log(req);
-    let result = String(req.responseText.includes(toString(Version))); // checks if the version in the readme matches the current version
+    console.log(req.responseText)
+    let result = req.responseText.includes(Version); // checks if the version in the readme matches the current version
     let resulthttstatus = req.status; // checks if the version in the readme matches the current version
     //console.log(result)
     if (resulthttstatus == 418) {
