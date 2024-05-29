@@ -15,7 +15,8 @@ Another note: The Firefox version is NOT tested if it works or not, although it 
 If any issues arises feel free to open an issue :)
 
 Example image:
-![image](https://github.com/DavidByggerBilar/SCTime-for-Kiwi-IRC/assets/66059104/fe3f2c02-8c2c-4069-a370-59fba5d222a6)
+![image](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/assets/66059104/7d44df46-abdb-48a9-837f-a55b38144d50)
+
 
 
 How to install:
