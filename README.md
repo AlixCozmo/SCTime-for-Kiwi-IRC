@@ -14,8 +14,12 @@ Another note: The Firefox version is NOT tested if it works or not, although it 
 
 If any issues arises feel free to open an issue :)
 
-Example image:
-![image](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/assets/66059104/7d44df46-abdb-48a9-837f-a55b38144d50)
+Example image: 
+![image](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/assets/66059104/f68ee3d3-f4ae-4c96-95ff-73cfbb939979)
+
+
+
+
 
 
 
