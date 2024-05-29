@@ -54,4 +54,8 @@ Things to do:
 
 * Fix sctime not being calculated when a period(.) is after the distance unit
 
-* Abort sctime injection when commands are used. example: !command 3 something something
+* Abort sctime injection when commands are used. example: !command 3 something something(maybe idk)
+
+* Clean up the code
+
+* Clean up the injected text, it's a bit messy
