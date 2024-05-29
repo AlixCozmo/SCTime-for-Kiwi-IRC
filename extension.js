@@ -1,6 +1,6 @@
 var messagetext = "";
 var nicktext = "";
-var Version = "1.4.8";
+var Version = "1.4.9";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
 var distanceunit = "";
@@ -38,7 +38,7 @@ function CheckForUpdate() {
         return 0
     }
 
-    if (result == "false") {
+    if (result == false) {
         console.log("New update available!")
         alert("An update is available for SCTime for Kiwi IRC!\n Visit the Github page to download & install.")
         return 1
@@ -201,10 +201,10 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
-                words[wordnumber] += "|[If Grvty well]:"
+                words[wordnumber] = (word + " ((" + TimeToTravel(distanceval, distanceunit));
+                words[wordnumber] += "|"
                 destinationGravity = true
-                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "))");
                 destinationGravity = false
                 } else {
                     if ((IsNumberK(altword)) == true) {
@@ -212,10 +212,10 @@ function FindText() {
                         nmbr = nmbr * 1000;
                         distanceval = '' + nmbr;
                     }
-                words[wordnumber] = (word + " (" + TimeToTravel(distanceval, distanceunit) + ")");
-                words[wordnumber] += "|[If Grvty well]:"
+                words[wordnumber] = (word + " ((" + TimeToTravel(distanceval, distanceunit));
+                words[wordnumber] += "|"
                 destinationGravity = true
-                words[wordnumber] += (" (" + TimeToTravel(distanceval, distanceunit) + ")");
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "))");
                 destinationGravity = false
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
@@ -722,6 +722,7 @@ function CalcTotSeconds(lightSeconds) {
 
 function CrTimeString(totalSeconds) {
     //console.log("timestring");
+    const verboseseconds = false;
     let formattedTime = "";
     let hours = 0;
     let remainderSec = 0;
@@ -734,12 +735,16 @@ function CrTimeString(totalSeconds) {
     seconds = Math.floor(totalSeconds % 60);
 
     if(hours > 0) {
-        formattedTime = '(' + hours + 'h' + minutes + 'm' + seconds + 's' + ')';
+        if (verboseseconds == false) {
+            formattedTime = hours + 'h' + minutes + 'm'; // no seconds bc over an hour
+        } else {
+            formattedTime = hours + 'h' + minutes + 'm' + seconds + 's';
+        }
     } else if
     (minutes > 0) {
-        formattedTime = '(' + minutes + 'm' + seconds + 's' + ')';
+        formattedTime = minutes + 'm' + seconds + 's';
     } else {
-        formattedTime = '(' + seconds + 's' + ')';
+        formattedTime = seconds + 's';
     }
     //console.log("ft" + formattedTime);
     return formattedTime;
