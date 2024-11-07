@@ -15,7 +15,8 @@ Another note: The Firefox version is NOT tested if it works or not, although it 
 If any issues arises feel free to open an issue :)
 
 Example image: 
-![image](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/assets/66059104/f68ee3d3-f4ae-4c96-95ff-73cfbb939979)
+![image](https://github.com/user-attachments/assets/ba3f2873-91ec-44d7-b6a7-91444a6ed45c)
+
 
 
 
@@ -62,3 +63,5 @@ Things to do:
 * Abort sctime injection when commands are used. example: !command 3 something something(maybe idk)
 
 * Clean up the code
+
+* add extension to firefox extension store?
