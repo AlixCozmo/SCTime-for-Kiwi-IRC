@@ -23,7 +23,7 @@ Explanation:
 
 ((13m29s|19m1s|2m12s))
 
-THe first entry assumes no gravity well, the second does and the third is for the mandalay with SCO
+The first entry assumes no gravity well, the second does and the third is for the mandalay with SCO
 
 How to install:
 
