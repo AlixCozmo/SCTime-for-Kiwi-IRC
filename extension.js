@@ -1,6 +1,6 @@
 var messagetext = "";
 var nicktext = "";
-var Version = "1.4.9";
+var Version = "1.5";
 var abort = false; // if set to true, the program should abort any current attempt to inject time data into a message
 var destinationGravity = false;
 var distanceunit = "";
@@ -152,18 +152,9 @@ function FindText() {
 
         for (let nicknumber = 0; nicknumber < nick.length; nicknumber++) {
             //console.log("indexing nicks..");
-            //console.log(nicktext);
-            //console.log(nicknumber);
-            //console.log(nick);
-            //console.log(elementnumber)
-            //console.log(elems)
-            //console.log("******")
-            //console.log(nick[elementnumber])
             nicktext = nick[elementnumber].innerText;
         }
 
-            //console.log("nick:" + nicktext);
-            //console.log("messagetext:" + messagetext);
         if (nicktext.includes("MechaSqueak[BOT]")) { // this is supposed to prevent the extension from showing estimates on messages from mechasqueak
             //console.log("Abort! Message is from MechaSqueak!");
             abort = true;
@@ -174,7 +165,6 @@ function FindText() {
             abort = false; // resets abort to it's starting value.
             continue; // this should make it so that it continues searching for messages to inject
         }
-        //console.log("msgtext: " + messagetext);
         //console.log("msgtext: " + messagetext);
         altmessagetext = messagetext; // altmessagetext is used instead of messagetext for calculation
         altmessagetext = altmessagetext.replace(",", "."); // replaces comma(',' with a dot '.')
@@ -204,8 +194,9 @@ function FindText() {
                 words[wordnumber] = (word + " ((" + TimeToTravel(distanceval, distanceunit));
                 words[wordnumber] += "|"
                 destinationGravity = true
-                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "))");
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "|");
                 destinationGravity = false
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit, true) + "))"); // mandalay time
                 } else {
                     if ((IsNumberK(altword)) == true) {
                         let nmbr = Number(distanceval);
@@ -215,8 +206,9 @@ function FindText() {
                 words[wordnumber] = (word + " ((" + TimeToTravel(distanceval, distanceunit));
                 words[wordnumber] += "|"
                 destinationGravity = true
-                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "))");
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit) + "|");
                 destinationGravity = false
+                words[wordnumber] += (TimeToTravel(distanceval, distanceunit, true) + "))"); // mandalay time
                 }
                 //finishedelements.splice(elementnumber, 0, (elementnumber));
                 //console.log("finishedelements1:" + finishedelements);
@@ -602,8 +594,11 @@ function IsNumberM(word) { // what??
 
 // Calculates the time to travel the distance that the word represents
 // and returns it as a string in th form "<number of days>d<number of hours>t<number of minutes>m<number of seconds>s" 
-// for example "3d17t5m19s" for 3 days, 17 hours, 5 minurtes, and 19 seconds
-function TimeToTravel(distv, distu) {
+// for example "3d17t5m19s" for 3 days, 17 hours, 5 minutes, and 19 seconds
+function TimeToTravel(distv, distu, mandyTime = false) {
+    // distv = distance value, such as 5. distu = distance unit, such as "ls"
+    // mandyTime if true, it changes the calculation to match the mandalay with SCO
+    // the function outputs human readable time in the form of "3d17t5m19s"
     let SCTime = 0;
     let distnumber = 0;
     //console.log("wordthingy");
@@ -621,7 +616,12 @@ function TimeToTravel(distv, distu) {
             return;
         }
     }
+    if (mandyTime) { // if the mandalay is used, it will calculate the mandalay time instead of the normal time
+        const mandalaySeconds = MandySeconds(ConvertToLS(distnumber, distu));
+        return formatMandalayTime(mandalaySeconds);
+    } else {
     SCTime = CalculateSCTime(distv, distu);
+    }
     return SCTime;
 }
 
@@ -749,3 +749,23 @@ function CrTimeString(totalSeconds) {
     //console.log("ft" + formattedTime);
     return formattedTime;
 }
+
+// The following code is originally from the sctime plugin made by Delryn(github.com/Delrynn/inline-sctime)
+function MandySeconds(lightsec) {
+    if (lightsec <= 25) {
+      return lightsec;
+    } else {
+      out = Math.floor(0.000237255 * lightsec + 13.9247);
+      console.log(out);
+      console.log(lightsec);
+      return out;
+    }
+}
+
+function formatMandalayTime(mandalaySeconds) {
+    if (mandalaySeconds === 25) {
+      return "<25s";
+    } else {
+      return CrTimeString(mandalaySeconds);
+    }
+  }
