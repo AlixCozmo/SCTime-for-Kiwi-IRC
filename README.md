@@ -1,4 +1,4 @@
-Version 1.4.9
+Version 1.5
 
 Latest stable release: 1.4.9
 
@@ -25,7 +25,7 @@ Example image:
 
 How to install:
 
-Chrome:
+Chrome:(may not work anymore after manifest v2 deprecation. switch to a different browser)
 
 To install, simply download the latest release, unzip the file and then in chrome://extensions enable programmer mode, click import uncompressed extension and then select the unzipped folder.
 
