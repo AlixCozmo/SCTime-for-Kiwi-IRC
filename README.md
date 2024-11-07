@@ -2,6 +2,8 @@ Version 1.4.9
 
 Latest stable release: 1.4.9
 
+(For mandalay support, check the [mandy branch](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/tree/mandy)
+
 For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelrats](https://fuelrats.com/) are, you most likely don't need this.
 
 
