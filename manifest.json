@@ -3,7 +3,7 @@
   "name": "SCTime Estimate for Kiwi IRC",
   "description": "Supercruise travel time estimate tool for kiwi irc.",
   "version": "1.5",
-  "author": "DavidByggerBilar",
+  "author": "AlixCozmo",
   "homepage_url": "https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC",
 
   "content_scripts": [
