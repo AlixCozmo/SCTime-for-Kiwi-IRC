@@ -618,6 +618,7 @@ function TimeToTravel(distv, distu, mandyTime = false) {
     }
     if (mandyTime) { // if the mandalay is used, it will calculate the mandalay time instead of the normal time
         const mandalaySeconds = MandySeconds(ConvertToLS(distnumber, distu));
+        console.log(mandalaySeconds);
         return formatMandalayTime(mandalaySeconds);
     } else {
     SCTime = CalculateSCTime(distv, distu);
@@ -752,10 +753,10 @@ function CrTimeString(totalSeconds) {
 
 // The following code is originally from the sctime plugin made by Delryn(github.com/Delrynn/inline-sctime)
 function MandySeconds(lightsec) {
-    if (lightsec <= 25) {
-      return lightsec;
+    if (lightsec <= 50000) {
+      return 25; // returns 25 if less than 25 lightseconds
     } else {
-      out = Math.floor(0.000237255 * lightsec + 13.9247);
+      out = Math.floor(0.000237255 * lightsec + 13.9247); // mandalay formula or something
       console.log(out);
       console.log(lightsec);
       return out;
@@ -763,8 +764,9 @@ function MandySeconds(lightsec) {
 }
 
 function formatMandalayTime(mandalaySeconds) {
-    if (mandalaySeconds === 25) {
-      return "<25s";
+    console.log(mandalaySeconds)
+    if (mandalaySeconds == 25) {
+      return "less than 25s";
     } else {
       return CrTimeString(mandalaySeconds);
     }
