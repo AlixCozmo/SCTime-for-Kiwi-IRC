@@ -8,20 +8,22 @@ For [Fuelrat](https://fuelrats.com/) IRC Use. If you don't know what the [fuelra
 
 This extension injects sctime in messages, It won't work on the regular Kiwi IRC without modifying the manifest file first and changing the URL. After doing that however it does work :)
 
-Please note that this extension currently uses ManifestV2 and not V3. 
-
-Another note: The Firefox version is NOT tested if it works or not, although it _should_.
+Another note: The Firefox version is not regularly tested if it works or not, although it _should_.
 
 If any issues arises feel free to open an issue :)
 
 Example image: 
-![image](https://github.com/AlixCozmo/SCTime-for-Kiwi-IRC/assets/66059104/f68ee3d3-f4ae-4c96-95ff-73cfbb939979)
+![image](https://github.com/user-attachments/assets/ba3f2873-91ec-44d7-b6a7-91444a6ed45c)
 
 
 
 
 
+Explanation:
 
+((13m29s|19m1s|2m12s))
+
+The first entry assumes no gravity well, the second does and the third is for the mandalay with SCO
 
 How to install:
 
@@ -62,3 +64,5 @@ Things to do:
 * Abort sctime injection when commands are used. example: !command 3 something something(maybe idk)
 
 * Clean up the code
+
+* add extension to firefox extension store?
